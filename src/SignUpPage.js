@@ -19,7 +19,9 @@ class SignupPage extends React.Component {
       .then(res => res.json())
       .then(parsedResponse => {
         localStorage.setItem("token", parsedResponse.token);
-        this.props.history.push("/");
+        this.props.getCurrentUser().then(() => {
+          this.props.history.push("/");
+        });
       });
   };
 

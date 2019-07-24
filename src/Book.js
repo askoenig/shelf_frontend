@@ -1,28 +1,39 @@
 import React, { Component } from "react";
 
 export default class Book extends Component {
+  state = {
+    bookColors: ["book-green", "book-blue", "book-umber", "book-springer"],
+    bookTilt: ["book-tilted", "", "", "", ""]
+  };
+
+  randomizeColor = () => {
+    const colors = this.state.bookColors;
+    const randomizedColor = colors[Math.floor(Math.random() * colors.length)];
+    return randomizedColor;
+  };
+
+  handleClick = () => {
+    this.props.grabID(this.props.book.id);
+  };
+
+  //   randomizeTilt = () => {
+  //     const tilt = this.state.bookTilt;
+  //     const randomizedTilt = tilt[Math.floor(Math.random() * tilt.length)];
+  //     return randomizedTilt;
+  //   };
+
   render() {
+    // console.log(this.props.book);
     return (
-      <div>
-        <div className="title">{this.props.title}</div>
-        <div className="subtitle">{this.props.subtitle}</div>
-        <img src={this.props.image} alt="oh no" />
-        <div className="authors">{this.props.authors}</div>
-        <div className="datePublished">{this.props.datePublished}</div>
-        <div className="printedPageCount">{this.props.printedPageCount}</div>
-        <div className="categories">{this.props.categories}</div>
-        <div className="categories">{this.props.language}</div>
+      //   <div className={this.randomizeTilt()}>
+      <div className={`book ${this.randomizeColor()}`}>
+        <h2>
+          {this.props.book.title}{" "}
+          <button className="deleteBook" onClick={this.handleClick}>
+            X
+          </button>
+        </h2>
       </div>
     );
   }
 }
-
-//   t.string "googleBookId"
-//   t.string "title"
-//   t.string "subtitle"
-//   t.string "authors"
-//   t.string "datePublished"
-//   t.string "printedPageCount"
-//   t.string "categories"
-//   t.string "language"
-//   t.string "image"

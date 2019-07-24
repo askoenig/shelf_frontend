@@ -1,22 +1,10 @@
 import React, { Component } from "react";
-import SearchBooks from "./SearchBooks";
+import SearchBook from "./SearchBook";
 
 export default class SearchAndSort extends Component {
   state = {
     searchInput: "",
-    displayBooks: [
-      // {
-      //   googleBookId: "",
-      //   title: "",
-      //   subtitle: "",
-      //   authors: "",
-      //   datePublished: "",
-      //   printedPageCount: "",
-      //   categories: "",
-      //   language: "",
-      //   image: ""
-      // }
-    ]
+    displayBooks: []
   };
 
   // const = api_KEY => process.env.SHELF_GOOGLE_BOOKS_API_KEY;
@@ -26,7 +14,7 @@ export default class SearchAndSort extends Component {
     fetch(
       `https://www.googleapis.com/books/v1/volumes?q=${
         this.state.searchInput
-      }&maxResults=20`
+      }&printType=books&maxResults=30`
     )
       .then(response => response.json())
       .then(searchResults =>
@@ -51,7 +39,7 @@ export default class SearchAndSort extends Component {
   render() {
     console.log(this.state.displayBooks);
     const searchBoxBooks = this.state.displayBooks.map(book => (
-      <SearchBooks book={book} />
+      <SearchBook book={book} />
     ));
     return (
       <div className="SearchBar">

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-export default class SearchBooks extends Component {
+export default class SearchBook extends Component {
   buildBookData = () => {
     const bookData = {
       googleBookId: this.props.book.id.toString(),
@@ -26,25 +26,23 @@ export default class SearchBooks extends Component {
   };
 
   handleClick = event => {
-    debugger;
     event.preventDefault();
-    fetch("http://localhost:3000/books", {
+    fetch("http://localhost:3000/findcreate", {
       method: "POST",
       headers: {
+        Authorization: `${localStorage.token}`,
         "Content-Type": "application/json",
         Accept: "application/json"
       },
       body: JSON.stringify(this.buildBookData())
-    })
-      .then(resp => resp.json())
-      .then(AddedBookObj => {
-        console.log(AddedBookObj);
-      });
+    });
+    //   .then(resp => resp.json())
+    //   .then(AddedBookObj => {
+    //     console.log(AddedBookObj);
+    //   });
   };
 
   render() {
-    console.log(this.state);
-
     return (
       <div>
         <div className="searchBookInfo">
@@ -52,27 +50,28 @@ export default class SearchBooks extends Component {
             className="searchBookImage"
             src={
               Object.keys(this.props.book.volumeInfo).includes("imageLinks")
-                ? this.props.book.volumeInfo.imageLinks.smallThumbnail
+                ? this.props.book.volumeInfo.imageLinks.thumbnail
                 : "oh no"
             }
             alt="oh no"
           />
-          <h2>{this.props.book.volumeInfo.title}</h2>
-          <h4>
+          <h2>
+            {this.props.book.volumeInfo.title}
+
             {Object.keys(this.props.book.volumeInfo).includes("subtitle")
-              ? `Subtitle: ${this.props.book.volumeInfo.subtitle}`
+              ? `: ${this.props.book.volumeInfo.subtitle}`
               : null}
-          </h4>
+          </h2>
           <h4>
             by:{" "}
             {Object.keys(this.props.book.volumeInfo).includes("authors")
               ? this.props.book.volumeInfo.authors.join(", ")
               : ""}
           </h4>
-          <h4>page count: {this.props.book.volumeInfo.pageCount}</h4>
-          <h4>published date: {this.props.book.volumeInfo.publishedDate}</h4>
-          <h4>categories: {this.props.book.volumeInfo.categories}</h4>
-          <h4>original language: {this.props.book.volumeInfo.language}</h4>
+          <h4>Pages: {this.props.book.volumeInfo.pageCount}</h4>
+          <h4>Published: {this.props.book.volumeInfo.publishedDate}</h4>
+          <h4>Categories: {this.props.book.volumeInfo.categories}</h4>
+          <h4>Original Language: {this.props.book.volumeInfo.language}</h4>
           <h5>
             {Object.keys(this.props.book.volumeInfo).includes("description")
               ? `Description: ${this.props.book.volumeInfo.description}`

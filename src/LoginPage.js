@@ -25,12 +25,14 @@ class LoginPage extends React.Component {
       .then(parsedResponse => {
         console.log(parsedResponse);
         localStorage.setItem("token", parsedResponse.token);
-        this.props.history.push("/");
+        this.props.getCurrentUser().then(() => {
+          this.props.history.push("/");
+        });
       });
   };
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     return (
       <div className="LoginPage">
         <form onSubmit={this.handleSubmit}>

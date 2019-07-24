@@ -9,6 +9,7 @@ class HomePage extends React.Component {
     console.log(this.props.username);
     return (
       <div>
+        <div className="banner">SHELF.</div>
         <div className="welcome">
           <h1>
             {" "}
@@ -17,16 +18,18 @@ class HomePage extends React.Component {
               : "Getting your profile..."}
           </h1>
         </div>
-        <ul>
+        {/* <ul>
           <li>
             <Link to="/messages">go to messages</Link>
           </li>
-        </ul>
+        </ul> */}
         <div>
           <SearchAndSort />
         </div>
         <div>
-          <Bookshelf />
+          {this.props.username ? (
+            <Bookshelf user_id={this.props.user_id} />
+          ) : null}
         </div>
       </div>
     );

@@ -11,37 +11,58 @@ import { Switch, Route } from "react-router-dom";
 
 class App extends React.Component {
   state = {
-    username: ""
+    user: {}
   };
 
   componentDidMount() {
+    this.getCurrentUser();
+  }
+
+  getCurrentUser = () => {
     if (localStorage.token) {
-      fetch("http://localhost:3000/profile", {
+      return fetch("http://localhost:3000/profile", {
         headers: {
           Authorization: localStorage.token
         }
       })
         .then(res => res.json())
-        .then(profileInfo => this.setState({ username: profileInfo.username }));
+        .then(profileInfo => this.setState({ user: profileInfo }));
     }
-  }
+  };
 
   render() {
     return (
       <Switch>
-        <Route path="/login" component={LoginPage} />
-        <Route path="/signup" component={SignUpPage} />
+        <Route
+          path="/login"
+          render={routerProps => (
+            <LoginPage getCurrentUser={this.getCurrentUser} {...routerProps} />
+          )}
+        />
+        <Route
+          path="/signup"
+          render={routerProps => (
+            <SignUpPage getCurrentUser={this.getCurrentUser} {...routerProps} />
+          )}
+        />
         <Route
           path="/messages"
           render={routerProps => (
-            <MessagesPage {...routerProps} username={this.state.username} />
+            <MessagesPage
+              {...routerProps}
+              username={this.state.user.username}
+            />
           )}
         />
         <Route
           exact
           path="/"
           render={routerProps => (
-            <HomePage {...routerProps} username={this.state.username} />
+            <HomePage
+              {...routerProps}
+              user_id={this.state.user.id}
+              username={this.state.user.username}
+            />
           )}
         />
         <Route component={FourOhFourPage} />
