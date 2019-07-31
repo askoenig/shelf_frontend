@@ -25,8 +25,11 @@ export default class SearchBook extends Component {
     return bookData;
   };
 
+  // handleClick = () => {
+  //   this.props.addBook(this.buildBookData());
+  // };
   handleClick = event => {
-    event.preventDefault();
+    // event.preventDefault();
     fetch("http://localhost:3000/findcreate", {
       method: "POST",
       headers: {
@@ -35,11 +38,7 @@ export default class SearchBook extends Component {
         Accept: "application/json"
       },
       body: JSON.stringify(this.buildBookData())
-    });
-    //   .then(resp => resp.json())
-    //   .then(AddedBookObj => {
-    //     console.log(AddedBookObj);
-    //   });
+    }).then(setTimeout(this.props.addBook, 1000));
   };
 
   render() {
@@ -55,23 +54,30 @@ export default class SearchBook extends Component {
             }
             alt="oh no"
           />
-          <h2>
-            {this.props.book.volumeInfo.title}
+          <>
+            <h2 className="searchBookTitle">
+              {this.props.book.volumeInfo.title}
 
-            {Object.keys(this.props.book.volumeInfo).includes("subtitle")
-              ? `: ${this.props.book.volumeInfo.subtitle}`
-              : null}
-          </h2>
+              {Object.keys(this.props.book.volumeInfo).includes("subtitle")
+                ? `: ${this.props.book.volumeInfo.subtitle}`
+                : null}
+            </h2>
+            <h3>
+              by{" "}
+              {Object.keys(this.props.book.volumeInfo).includes("authors")
+                ? this.props.book.volumeInfo.authors.join(", ")
+                : ""}
+            </h3>
+          </>
           <h4>
-            by:{" "}
-            {Object.keys(this.props.book.volumeInfo).includes("authors")
-              ? this.props.book.volumeInfo.authors.join(", ")
-              : ""}
+            Pages: {this.props.book.volumeInfo.pageCount}
+            <br />
+            Published: {this.props.book.volumeInfo.publishedDate}
+            <br />
+            Categories: {this.props.book.volumeInfo.categories}
+            <br />
+            Original Language: {this.props.book.volumeInfo.language}
           </h4>
-          <h4>Pages: {this.props.book.volumeInfo.pageCount}</h4>
-          <h4>Published: {this.props.book.volumeInfo.publishedDate}</h4>
-          <h4>Categories: {this.props.book.volumeInfo.categories}</h4>
-          <h4>Original Language: {this.props.book.volumeInfo.language}</h4>
           <h5>
             {Object.keys(this.props.book.volumeInfo).includes("description")
               ? `Description: ${this.props.book.volumeInfo.description}`
