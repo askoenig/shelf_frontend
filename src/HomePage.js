@@ -12,10 +12,14 @@ class HomePage extends React.Component {
     searchInput: "",
     displayBooks: [],
     currentUserBooks: [],
+    grabAllShelves: [],
     clickedBook: [],
     chosenShelf: "",
     sortMethod: "",
-    thoughts: ""
+    thoughts: "",
+    tags: ["all books"],
+    value: "",
+    shelves: ""
   };
 
   componentDidMount() {
@@ -25,6 +29,9 @@ class HomePage extends React.Component {
         .then(userBooksData =>
           this.setState({
             currentUserBooks: userBooksData.data.attributes.user_books.sort(
+              (a, b) => a.id - b.id
+            ),
+            grabAllShelves: userBooksData.data.attributes.user_books.sort(
               (a, b) => a.id - b.id
             )
           })
@@ -61,17 +68,19 @@ class HomePage extends React.Component {
   };
 
   searchForBooks = () => {
-    fetch(
-      `https://www.googleapis.com/books/v1/volumes?q=${
-        this.state.searchInput
-      }&printType=books&maxResults=30`
-    )
-      .then(response => response.json())
-      .then(searchResults =>
-        this.setState({
-          displayBooks: searchResults.items
-        })
-      );
+    if (this.state.searchInput.length > 0) {
+      fetch(
+        `https://www.googleapis.com/books/v1/volumes?q=${
+          this.state.searchInput
+        }&printType=books&maxResults=30`
+      )
+        .then(response => response.json())
+        .then(searchResults =>
+          this.setState({
+            displayBooks: searchResults.items
+          })
+        );
+    }
   };
 
   getSearchBoxBooks = () => {
@@ -87,13 +96,15 @@ class HomePage extends React.Component {
       .then(response => response.json())
       .then(userBooksData =>
         this.setState({
-          currentUserBooks: userBooksData.data.attributes.user_books
+          currentUserBooks: userBooksData.data.attributes.user_books.sort(
+            (a, b) => a.id - b.id
+          )
         })
       );
   };
 
   triggerBookSearch = event => {
-    if (event.key === "Enter") {
+    if (event.key === "Enter" && this.state.searchInput.length > 0) {
       this.searchForBooks();
     }
   };
@@ -105,7 +116,7 @@ class HomePage extends React.Component {
     });
   };
 
-  handleKeyDown(e) {
+  resizeTextArea(e) {
     e.target.style.height = "inherit";
     e.target.style.height = `${e.target.scrollHeight}px`;
   }
@@ -152,7 +163,8 @@ class HomePage extends React.Component {
       .then(clickedBookData =>
         this.setState({
           clickedBook: [clickedBookData.data],
-          thoughts: clickedBookData.data.attributes.thoughts || ""
+          thoughts: clickedBookData.data.attributes.thoughts || "",
+          shelves: [clickedBookData.data.attributes.shelves] || ""
         })
       );
   };
@@ -164,18 +176,33 @@ class HomePage extends React.Component {
   };
 
   selectShelf = event => {
-    console.log(event.target.value);
-    // this.setState({
-    //   chosenShelf: event.target.value
-    // })
+    // console.log(event.target.value);
+    let shelfBooks = this.state.grabAllShelves.filter(
+      userbook => userbook.shelves != null
+    );
+    if (event.target.value === "All Books") {
+      this.setState({
+        currentUserBooks: this.state.grabAllShelves
+      });
+    } else {
+      this.setState({
+        currentUserBooks: shelfBooks.filter(book =>
+          book.shelves.includes(event.target.value)
+        ),
+        sortMethod: "shelf"
+      });
+    }
   };
 
   selectSort = event => {
+    // console.log(event.target.value);
+    // console.log(this.state.currentUserBooks);
     if (event.target.value === "Date Added") {
       this.setState({
         currentUserBooks: this.state.currentUserBooks.sort(
           (a, b) => a.id - b.id
-        )
+        ),
+        sortMethod: "date added"
       });
     }
     if (event.target.value === "Alphabetically") {
@@ -206,16 +233,92 @@ class HomePage extends React.Component {
     // else if (event.target.value === "Date Published")
   };
 
-  // changeShelves = () => {
-  //   this.setState({
-  //     currentUserBooks: this.state.currentUserBooks.filter(
-  //       user_book => user_book.shelves !== choosenShelf
-  //     )
-  //   });
+  // IF YOU CONTROL Z BACK TO THIS YOU'RE GOOD
+  handleChange = e => {
+    this.setState({
+      value: e.target.value
+    });
+  };
+
+  handleKeyUp = e => {
+    if (e.key === "Enter" || e.key === "Comma") {
+      this.addTag();
+    }
+  };
+
+  handleKeyDown = e => {
+    if ((e.key === "Delete" || e.key === "Backspace") && !this.state.value) {
+      this.editPrevTag();
+    }
+  };
+
+  addTag = () => {
+    const tag = this.state.value;
+
+    if (!tag) {
+      return;
+    }
+    let newShelves = this.state.shelves;
+    if (this.state.shelves[0]) {
+      newShelves.push(tag);
+    } else {
+      this.state.shelves[0] = tag;
+    }
+
+    newShelves = newShelves.join(", ");
+
+    // console.log(this.state.shelves.push(tag));
+    // let newShelves = this.state.shelves.push(tag).join(", ");
+
+    fetch(`http://localhost:3000/user_books/${this.state.clickedBook[0].id}`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `${localStorage.token}`,
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        shelves: newShelves
+      })
+    }).then(
+      this.setState({
+        clickedBook: this.state.clickedBook[0].attributes.shelves + tag,
+        value: ""
+      })
+    );
+  };
+
+  // editPrevTag = () => {
+  //   let tags = this.state.tags;
+
+  //   const tag = tags.pop();
+
+  //   this.setState({ value: tag });
+  // };
+
+  editPrevTag() {
+    let tags = this.state.shelves;
+
+    const tag = tags.pop();
+
+    this.setState({ value: tag });
+  }
+
+  // changeShelves = event => {
+  //   fetch(`http://localhost:3000/users/${this.props.user_id}`)
+  //     .then(response => response.json())
+  //     .then(userBooksData =>
+  //       this.setState({
+  //         currentUserBooks: userBooksData.data.attributes.user_books.filter(
+  //           book => book.shelves.includes(event.target.value)
+  //         ),
+  //         sortMethod: "shelf"
+  //       })
+  //     );
   // };
 
   render() {
-    console.log(this.state.sortMethod);
+    // console.log(this.state.currentUserBooks.shelves);
     let allLoadedUserBooks = "";
     if (this.state.currentUserBooks.length > 0) {
       allLoadedUserBooks = this.state.currentUserBooks.map(book => {
@@ -228,10 +331,21 @@ class HomePage extends React.Component {
         );
       });
     }
+    let listToFilter = this.state.grabAllShelves.map(book => book.shelves);
+    let uniqueShelves = listToFilter.filter((v, i, a) => a.indexOf(v) === i);
+    let shelves = uniqueShelves
+      .filter(shelf => shelf != null)
+      .map(shelf => shelf.split(", "))
+      .flat()
+      .filter((v, i, a) => a.indexOf(v) === i);
+
+    console.log(listToFilter);
+    // console.log(uniqueShelves);
     return (
       <div>
         <div className="banner">SHELF.</div>
         <div className="welcome">
+          {/* <button className="logOut" /> */}
           <h1>
             {" "}
             {this.props.username
@@ -300,16 +414,14 @@ class HomePage extends React.Component {
                 <h4>{this.state.clickedBook[0].attributes.book.description}</h4>
                 <div>
                   <h3>Your thoughts:</h3>
-
                   <div>
                     <textarea
                       className="typeYourThoughts"
                       id="expandable"
                       value={this.state.thoughts}
                       onChange={this.grabUserThoughts}
-                      onKeyDown={this.handleKeyDown}
+                      onKeyDown={this.resizeTextArea}
                       name="text"
-                      oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
                     />
                     <button
                       type="submit"
@@ -319,6 +431,40 @@ class HomePage extends React.Component {
                       Submit Thoughts
                     </button>
                   </div>
+                </div>
+                <h3>Assign this book to a shelf:</h3>
+                <div className="form">
+                  <div className="tags">
+                    <ul>
+                      {this.state.clickedBook[0].attributes.shelves
+                        ? this.state.clickedBook[0].attributes.shelves
+                            .split(", ")
+                            .map((tag, i) => (
+                              <li key={tag + i} className="tag">
+                                {tag}
+                              </li>
+                            ))
+                        : this.state.tags.map((tag, i) => (
+                            <li key={tag + i} className="tag">
+                              {tag}
+                            </li>
+                          ))}
+                    </ul>
+                    <input
+                      type="text"
+                      placeholder="Add a tag..."
+                      value={this.state.value}
+                      onChange={this.handleChange}
+                      ref="tag"
+                      className="tag-input"
+                      onKeyUp={this.handleKeyUp}
+                      onKeyDown={this.handleKeyDown}
+                    />
+                  </div>
+                  <small>
+                    Press <code>enter</code> to add a SHELF tag. Press{" "}
+                    <code>backspace</code> to edit previous tag.
+                  </small>
                 </div>
               </div>
             </div>
@@ -330,10 +476,14 @@ class HomePage extends React.Component {
             <option value="" disabled selected>
               Shelves
             </option>
-            <option value="Safari">Safari</option>
+            <option value="All Books">All Books</option>
+            {shelves.map(shelf => (
+              <option value={`${shelf}`}>{`${shelf}`}</option>
+            ))}
+            {/* <option value="Safari">Safari</option>
             <option value="Firefox">Firefox</option>
             <option value="Chrome">Chrome</option>
-            <option value="All Books">All Books</option>
+            <option value="All Books">All Books</option> */}
           </select>
         </div>
         <div>
@@ -351,6 +501,7 @@ class HomePage extends React.Component {
         <div>
           {/* {this.state.currentUserBooks.length > 0 ? ( */}
           <Bookshelf
+            key={1}
             user_id={this.props.user_id}
             currentUserBooks={allLoadedUserBooks}
           />
