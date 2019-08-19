@@ -34,19 +34,30 @@ class LoginPage extends React.Component {
   render() {
     return (
       <div className="LoginPage">
-        <form onSubmit={this.handleSubmit}>
+        <form className="LoginBox" onSubmit={this.handleSubmit}>
+          <h1
+            style={{ display: "flex", justifyContent: "center", fontSize: 45 }}
+          >
+            SHELF.
+          </h1>
           <input
             value={this.state.username}
             onChange={this.handleChange}
             name="username"
+            placeholder="username"
           />
+          <br />
           <input
             type="password"
             value={this.state.password}
             onChange={this.handleChange}
             name="password"
+            placeholder="password"
           />
-          <input type="submit" value="Log in" />
+          <br />
+          <button type="submit" value="LOG IN" className="LoginButton">
+            LOG IN
+          </button>
         </form>
       </div>
     );

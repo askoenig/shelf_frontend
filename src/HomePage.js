@@ -135,7 +135,7 @@ class HomePage extends React.Component {
   };
 
   // IF GOOGLE SETS FETCH REQUEST QUOTA TO UNLIMITED (LOL) FOR MY API KEY,
-  // USE COMMENTED CODE BELOW/THROUGH OUT FOR REAL TIME SEARCH RESULTS
+  // USE COMMENTED CODE BELOW/THROUGH OUT FOR REAL TIME CHARACTER BY CHARACTER SEARCH RESULTS
 
   // captureUserSearchInput = event => {
   //   event.preventDefault();
@@ -206,34 +206,33 @@ class HomePage extends React.Component {
       });
     }
     if (event.target.value === "Alphabetically") {
-      fetch(`http://localhost:3000/users/${this.props.user_id}`)
-        .then(response => response.json())
-        .then(userBooksData =>
-          this.setState({
-            currentUserBooks: userBooksData.data.attributes.user_books.sort(
-              (a, b) => a.title.localeCompare(b.title)
-            ),
-            sortMethod: "alphabetically"
-          })
-        );
+      // fetch(`http://localhost:3000/users/${this.props.user_id}`)
+      //   .then(response => response.json())
+      //   .then(userBooksData =>
+      this.setState({
+        currentUserBooks: this.state.currentUserBooks.sort((a, b) =>
+          a.title.localeCompare(b.title)
+        ),
+        sortMethod: "alphabetically"
+      });
+      // );
     }
     if (event.target.value === "Author") {
-      fetch(`http://localhost:3000/users/${this.props.user_id}`)
-        .then(response => response.json())
-        .then(userBooksData =>
-          this.setState({
-            currentUserBooks: userBooksData.data.attributes.user_books.sort(
-              (a, b) => a.authors.localeCompare(b.authors)
-            ),
-            sortMethod: "author"
-          })
-        );
+      // fetch(`http://localhost:3000/users/${this.props.user_id}`)
+      //   .then(response => response.json())
+      //   .then(userBooksData =>
+      this.setState({
+        currentUserBooks: this.state.currentUserBooks.sort((a, b) =>
+          a.authors.localeCompare(b.authors)
+        ),
+        sortMethod: "author"
+      });
+      // );
     }
     // else if (event.target.value === "Page Count")
     // else if (event.target.value === "Date Published")
   };
 
-  // IF YOU CONTROL Z BACK TO THIS YOU'RE GOOD
   handleChange = e => {
     this.setState({
       value: e.target.value
@@ -241,16 +240,16 @@ class HomePage extends React.Component {
   };
 
   handleKeyUp = e => {
-    if (e.key === "Enter" || e.key === "Comma") {
+    if (e.key === "Enter") {
       this.addTag();
     }
   };
 
-  handleKeyDown = e => {
-    if ((e.key === "Delete" || e.key === "Backspace") && !this.state.value) {
-      this.editPrevTag();
-    }
-  };
+  // handleKeyDown = e => {
+  //   if ((e.key === "Delete" || e.key === "Backspace") && !this.state.value) {
+  //     this.editPrevTag();
+  //   }
+  // };
 
   addTag = () => {
     const tag = this.state.value;
@@ -261,14 +260,10 @@ class HomePage extends React.Component {
     let newShelves = this.state.shelves;
     if (this.state.shelves[0]) {
       newShelves.push(tag);
+      newShelves = newShelves.join(", ");
     } else {
-      this.state.shelves[0] = tag;
+      newShelves = tag;
     }
-
-    newShelves = newShelves.join(", ");
-
-    // console.log(this.state.shelves.push(tag));
-    // let newShelves = this.state.shelves.push(tag).join(", ");
 
     fetch(`http://localhost:3000/user_books/${this.state.clickedBook[0].id}`, {
       method: "PATCH",
@@ -282,11 +277,81 @@ class HomePage extends React.Component {
       })
     }).then(
       this.setState({
-        clickedBook: this.state.clickedBook[0].attributes.shelves + tag,
+        shelves: [newShelves],
+        // tags: [newShelves],
         value: ""
       })
     );
+    fetch(`http://localhost:3000/users/${this.props.user_id}`)
+      .then(response => response.json())
+      .then(userBooksData =>
+        this.setState({
+          currentUserBooks: userBooksData.data.attributes.user_books.sort(
+            (a, b) => a.id - b.id
+          ),
+          grabAllShelves: userBooksData.data.attributes.user_books.sort(
+            (a, b) => a.id - b.id
+          )
+        })
+      );
   };
+
+  deleteTag = tag => {
+    // console.log(tag);
+    const newShelves = this.state.shelves
+      .toString()
+      .split(", ")
+      .filter(shelf => shelf != tag)
+      .join(", ");
+    // console.log([newShelves]);
+    this.setState({
+      shelves: [newShelves]
+    });
+
+    fetch(`http://localhost:3000/user_books/${this.state.clickedBook[0].id}`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `${localStorage.token}`,
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        shelves: newShelves
+      })
+    }).then(
+      this.setState({
+        shelves: [newShelves],
+        tags: [newShelves],
+        value: ""
+      })
+    );
+    fetch(`http://localhost:3000/users/${this.props.user_id}`)
+      .then(response => response.json())
+      .then(userBooksData =>
+        this.setState({
+          currentUserBooks: userBooksData.data.attributes.user_books.sort(
+            (a, b) => a.id - b.id
+          ),
+          grabAllShelves: userBooksData.data.attributes.user_books.sort(
+            (a, b) => a.id - b.id
+          )
+        })
+      );
+  };
+
+  // deleteTag = tag => {
+  //   console.log(tag);
+  //   const newShelves = this.state.shelves
+  //     .toString()
+  //     .split(", ")
+  //     .filter(shelf => shelf != tag)
+  //     .join(", ");
+
+  //   this.setState({
+  //     shelves: [newShelves]
+  //   });
+  //   console.log(this.state.shelves);
+  // };
 
   // editPrevTag = () => {
   //   let tags = this.state.tags;
@@ -296,29 +361,21 @@ class HomePage extends React.Component {
   //   this.setState({ value: tag });
   // };
 
-  editPrevTag() {
-    let tags = this.state.shelves;
+  // editPrevTag() {
+  //   let tags = [this.state.shelves];
 
-    const tag = tags.pop();
+  //   const tag = tags.pop();
 
-    this.setState({ value: tag });
-  }
+  //   this.setState({ value: tag });
+  // }
 
-  // changeShelves = event => {
-  //   fetch(`http://localhost:3000/users/${this.props.user_id}`)
-  //     .then(response => response.json())
-  //     .then(userBooksData =>
-  //       this.setState({
-  //         currentUserBooks: userBooksData.data.attributes.user_books.filter(
-  //           book => book.shelves.includes(event.target.value)
-  //         ),
-  //         sortMethod: "shelf"
-  //       })
-  //     );
-  // };
+  logOut = () => {
+    localStorage.clear();
+    this.props.history.push("/login");
+  };
 
   render() {
-    // console.log(this.state.currentUserBooks.shelves);
+    // console.log(this.state.grabAllShelves);
     let allLoadedUserBooks = "";
     if (this.state.currentUserBooks.length > 0) {
       allLoadedUserBooks = this.state.currentUserBooks.map(book => {
@@ -339,19 +396,22 @@ class HomePage extends React.Component {
       .flat()
       .filter((v, i, a) => a.indexOf(v) === i);
 
-    console.log(listToFilter);
-    // console.log(uniqueShelves);
+    // console.log(listToFilter);
+    console.log(this.state.currentUserBooks);
     return (
-      <div>
-        <div className="banner">SHELF.</div>
+      <div className="MainPage">
+        <div className="banner">
+          SHELF.
+          {this.props.username && (
+            <button className="logOut" onClick={this.logOut}>
+              {" "}
+              Log Out
+            </button>
+          )}
+        </div>
         <div className="welcome">
           {/* <button className="logOut" /> */}
-          <h1>
-            {" "}
-            {this.props.username
-              ? `Hello, ${this.props.username}!`
-              : "Getting your profile..."}
-          </h1>
+          <h1> {this.props.username && `Hello, ${this.props.username}!`}</h1>
         </div>
         {/* <ul>
           <li>
@@ -361,7 +421,7 @@ class HomePage extends React.Component {
         <div className="SearchBar">
           <input
             type="text"
-            placeholder={"Search by title, author, etc.."}
+            placeholder={"Search books by title, author, etc.."}
             // onChange={this.captureUserSearchInput}
             onChange={this.grabSearchInput}
             onKeyPress={this.triggerBookSearch}
@@ -433,37 +493,43 @@ class HomePage extends React.Component {
                   </div>
                 </div>
                 <h3>Assign this book to a shelf:</h3>
-                <div className="form">
+                <div>
                   <div className="tags">
                     <ul>
                       {this.state.clickedBook[0].attributes.shelves
-                        ? this.state.clickedBook[0].attributes.shelves
+                        ? this.state.shelves
+                            .toString()
                             .split(", ")
                             .map((tag, i) => (
-                              <li key={tag + i} className="tag">
+                              <div key={tag + i} className="tag">
                                 {tag}
-                              </li>
+                                <button
+                                  className="deleteTag"
+                                  onClick={() => this.deleteTag(tag)}
+                                >
+                                  X
+                                </button>
+                              </div>
                             ))
                         : this.state.tags.map((tag, i) => (
-                            <li key={tag + i} className="tag">
+                            <div key={tag + i} className="tag">
                               {tag}
-                            </li>
+                            </div>
                           ))}
                     </ul>
                     <input
                       type="text"
-                      placeholder="Add a tag..."
-                      value={this.state.value}
+                      placeholder="Add to Shelf.."
+                      // value="Add tag.."
                       onChange={this.handleChange}
-                      ref="tag"
-                      className="tag-input"
+                      className="typeTag"
                       onKeyUp={this.handleKeyUp}
                       onKeyDown={this.handleKeyDown}
                     />
                   </div>
                   <small>
-                    Press <code>enter</code> to add a SHELF tag. Press{" "}
-                    <code>backspace</code> to edit previous tag.
+                    Type and press <code>enter</code> to add a SHELF tag. Press{" "}
+                    <code>X</code> to remove a tag.
                   </small>
                 </div>
               </div>
