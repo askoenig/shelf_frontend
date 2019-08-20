@@ -164,7 +164,8 @@ class HomePage extends React.Component {
         this.setState({
           clickedBook: [clickedBookData.data],
           thoughts: clickedBookData.data.attributes.thoughts || "",
-          shelves: [clickedBookData.data.attributes.shelves] || ""
+          shelves: [clickedBookData.data.attributes.shelves] || "",
+          tags: ["all books"]
         })
       );
   };
@@ -176,7 +177,6 @@ class HomePage extends React.Component {
   };
 
   selectShelf = event => {
-    // console.log(event.target.value);
     let shelfBooks = this.state.grabAllShelves.filter(
       userbook => userbook.shelves != null
     );
@@ -252,7 +252,7 @@ class HomePage extends React.Component {
   // };
 
   addTag = () => {
-    const tag = this.state.value;
+    let tag = this.state.value;
 
     if (!tag) {
       return;
@@ -275,30 +275,33 @@ class HomePage extends React.Component {
       body: JSON.stringify({
         shelves: newShelves
       })
-    }).then(
-      this.setState({
-        shelves: [newShelves],
-        // tags: [newShelves],
-        value: ""
-      })
-    );
-    fetch(`http://localhost:3000/users/${this.props.user_id}`)
-      .then(response => response.json())
-      .then(userBooksData =>
+    })
+      .then(() => {
         this.setState({
-          currentUserBooks: userBooksData.data.attributes.user_books.sort(
-            (a, b) => a.id - b.id
-          ),
-          grabAllShelves: userBooksData.data.attributes.user_books.sort(
-            (a, b) => a.id - b.id
-          )
-        })
-      );
+          shelves: [newShelves],
+          tags: [newShelves],
+          value: ""
+        });
+      })
+      .then(() => {
+        fetch(`http://localhost:3000/users/${this.props.user_id}`)
+          .then(response => response.json())
+          .then(userBooksData =>
+            this.setState({
+              currentUserBooks: userBooksData.data.attributes.user_books.sort(
+                (a, b) => a.id - b.id
+              ),
+              grabAllShelves: userBooksData.data.attributes.user_books.sort(
+                (a, b) => a.id - b.id
+              )
+            })
+          );
+      });
   };
 
   deleteTag = tag => {
     // console.log(tag);
-    const newShelves = this.state.shelves
+    let newShelves = this.state.shelves
       .toString()
       .split(", ")
       .filter(shelf => shelf != tag)
@@ -318,25 +321,28 @@ class HomePage extends React.Component {
       body: JSON.stringify({
         shelves: newShelves
       })
-    }).then(
-      this.setState({
-        shelves: [newShelves],
-        tags: [newShelves],
-        value: ""
-      })
-    );
-    fetch(`http://localhost:3000/users/${this.props.user_id}`)
-      .then(response => response.json())
-      .then(userBooksData =>
+    })
+      .then(() => {
         this.setState({
-          currentUserBooks: userBooksData.data.attributes.user_books.sort(
-            (a, b) => a.id - b.id
-          ),
-          grabAllShelves: userBooksData.data.attributes.user_books.sort(
-            (a, b) => a.id - b.id
-          )
-        })
-      );
+          shelves: [newShelves],
+          // tags: [newShelves],
+          value: ""
+        });
+      })
+      .then(() => {
+        fetch(`http://localhost:3000/users/${this.props.user_id}`)
+          .then(response => response.json())
+          .then(userBooksData =>
+            this.setState({
+              currentUserBooks: userBooksData.data.attributes.user_books.sort(
+                (a, b) => a.id - b.id
+              ),
+              grabAllShelves: userBooksData.data.attributes.user_books.sort(
+                (a, b) => a.id - b.id
+              )
+            })
+          );
+      });
   };
 
   // deleteTag = tag => {
@@ -537,7 +543,11 @@ class HomePage extends React.Component {
           )}
         </div>
         <div>
-          <select className="chooseShelf" onChange={this.selectShelf}>
+          <select
+            className="chooseShelf"
+            onClick={this.forceUpdate}
+            onChange={this.selectShelf}
+          >
             {/* <datalist id="browsers"> */}
             <option value="" disabled selected>
               Shelves

@@ -38,7 +38,8 @@ export default class Book extends Component {
     // return clickedBook;
   };
 
-  passBookToDeleteFetch = () => {
+  passBookToDeleteFetch = e => {
+    e.stopPropagation();
     this.props.grabID(this.props.book.id);
   };
 

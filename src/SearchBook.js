@@ -78,11 +78,11 @@ export default class SearchBook extends Component {
             <br />
             Original Language: {this.props.book.volumeInfo.language}
           </h4>
-          <h5>
+          <h4>
             {Object.keys(this.props.book.volumeInfo).includes("description")
               ? `Description: ${this.props.book.volumeInfo.description}`
               : null}
-          </h5>
+          </h4>
           <button className="button" onClick={this.handleClick}>
             Add Book
           </button>

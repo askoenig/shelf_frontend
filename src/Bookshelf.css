@@ -63,6 +63,8 @@
   color: white;
   background-color: transparent;
   float: right;
+
+  border: none;
 }
 
 .deleteBook:hover {
