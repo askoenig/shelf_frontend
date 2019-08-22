@@ -194,6 +194,26 @@
   margin-right: 35px;
 }
 
+.closeSearchBookButton {
+  z-index: 1;
+  position: relative;
+  float: right;
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: -35px;
+  /* margin-left: 90px; */
+  border-radius: 4px;
+  font-size: 16px;
+  border: gray;
+}
+
+.closeSearchBookButton:hover {
+  background-color: rgb(29, 167, 221);
+  color: white;
+  /* box-shadow: 0 2px 30px 0 rgba(0, 0, 0, 0.24),
+    0 10px 35px 0 rgba(0, 0, 0, 0.19); */
+}
+
 .button {
   background-color: rgb(29, 167, 221);
   font-family: Lato, sans-serif;
@@ -231,8 +251,8 @@
   float: left;
   position: absolute;
   /* margin-top: -10px; */
-  margin-left: 15px;
-  margin-right: 50px;
+  margin-left: 30px;
+  margin-right: 40px;
 }
 
 .closeClickedBookButton {
@@ -265,6 +285,7 @@
   margin-top: -15px;
   margin-bottom: 5px;
 }
+
 .submitThoughts {
   /* display: inline; */
   background-color: rgb(29, 167, 221);
@@ -310,7 +331,7 @@
   position: absolute;
   z-index: -3;
   color: black;
-  margin-top: 6.6%;
+  margin-top: 6.3%;
   margin-left: 1%;
   font-family: Lato, sans-serif;
   font-size: 20px;

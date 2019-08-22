@@ -80,11 +80,21 @@ export default class Book extends Component {
   //     return randomizedTilt;
   //   };
 
+  // randomIntFromInterval = () => {
+  //   let min = 600;
+  //   let max = 680;
+  //   let height = Math.floor(Math.random() * (max - min + 1) + min);
+  //   return height;
+  // };
+
   render() {
     const bookColor = {
       backgroundColor: this.stringToColour(this.props.book.googleBookId)
     };
-
+    // const bookHeight = {
+    //   height: this.randomIntFromInterval()
+    // };
+    // console.log(bookColor);
     return (
       //   <div className={this.randomizeTilt()}>
       // <div className={`book ${this.randomizeColor()}`}>

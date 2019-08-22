@@ -90,6 +90,13 @@ class HomePage extends React.Component {
     return searchBoxBooks;
   };
 
+  closeSearchBookDisplay = () => {
+    this.setState({
+      displayBooks: [],
+      searchInput: ""
+    });
+  };
+
   putSelectedBookOnShelf = () => {
     console.log("Hello");
     fetch(`http://localhost:3000/users/${this.props.user_id}`)
@@ -261,9 +268,11 @@ class HomePage extends React.Component {
     if (this.state.shelves[0]) {
       newShelves.push(tag);
       newShelves = newShelves.join(", ");
-    } else {
-      newShelves = tag;
-    }
+    } else if (this.state.tags != ["All Books"]) {
+      newShelves = this.state.tags;
+      newShelves.push(tag);
+      newShelves = newShelves.join(", ");
+    } else newShelves = tag;
 
     fetch(`http://localhost:3000/user_books/${this.state.clickedBook[0].id}`, {
       method: "PATCH",
@@ -438,7 +447,15 @@ class HomePage extends React.Component {
           {/* <button className="searchBooks">Search</button> */}
           {this.state.searchInput.length > 0 &&
           this.state.displayBooks.length > 0 ? (
-            <div className="bookSearchResults">{this.getSearchBoxBooks()}</div>
+            <div className="bookSearchResults">
+              <button
+                className="closeSearchBookButton"
+                onClick={this.closeSearchBookDisplay}
+              >
+                X
+              </button>
+              {this.getSearchBoxBooks()}
+            </div>
           ) : null}
           {/* <button className="searchBooks">Search</button> */}
           {this.state.clickedBook.length > 0 && (
@@ -517,11 +534,14 @@ class HomePage extends React.Component {
                                 </button>
                               </div>
                             ))
-                        : this.state.tags.map((tag, i) => (
-                            <div key={tag + i} className="tag">
-                              {tag}
-                            </div>
-                          ))}
+                        : this.state.tags
+                            .toString()
+                            .split(", ")
+                            .map((tag, i) => (
+                              <div key={tag + i} className="tag">
+                                {tag}
+                              </div>
+                            ))}
                     </ul>
                     <input
                       type="text"
