@@ -1,5 +1,6 @@
 {
   "name": "shelf-frontend",
+  "homepage": "https://myshelf.netlify.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
