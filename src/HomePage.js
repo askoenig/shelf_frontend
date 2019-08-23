@@ -195,9 +195,15 @@ class HomePage extends React.Component {
       userbook => userbook.shelves != null
     );
     if (event.target.value === "All Books") {
-      this.setState({
-        currentUserBooks: this.state.grabAllShelves
-      });
+      fetch(`http://localhost:3000/users/${this.props.user_id}`)
+        .then(response => response.json())
+        .then(userBooksData =>
+          this.setState({
+            currentUserBooks: userBooksData.data.attributes.user_books.sort(
+              (a, b) => a.id - b.id
+            )
+          })
+        );
     } else {
       this.setState({
         currentUserBooks: shelfBooks.filter(book =>
