@@ -196,11 +196,11 @@
 
 .closeSearchBookButton {
   z-index: 1;
-  position: relative;
+  position: fixed;
   float: right;
   margin-right: 10px;
   margin-top: 10px;
-  margin-bottom: -35px;
+  margin-left: 40%;
   /* margin-left: 90px; */
   border-radius: 4px;
   font-size: 16px;
@@ -222,7 +222,7 @@
   width: 100px;
   height: 25px;
   color: white;
-  font-size: 16px;
+  font-size: 18px;
   margin-top: -20px;
   float: right;
   /* box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
@@ -257,10 +257,11 @@
 
 .closeClickedBookButton {
   z-index: 1;
-  position: relative;
+  position: fixed;
   float: right;
   margin-right: 10px;
   margin-top: 10px;
+  margin-left: 40%;
   /* margin-left: 90px; */
   border-radius: 4px;
   font-size: 16px;

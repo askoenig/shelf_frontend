@@ -268,10 +268,10 @@ class HomePage extends React.Component {
     if (this.state.shelves[0]) {
       newShelves.push(tag);
       newShelves = newShelves.join(", ");
-    } else if (this.state.tags != ["All Books"]) {
-      newShelves = this.state.tags;
-      newShelves.push(tag);
-      newShelves = newShelves.join(", ");
+      // } else if (this.state.tags != ["all books"]) {
+      //   newShelves = this.state.tags;
+      //   newShelves.push(tag);
+      //   newShelves = newShelves.join(", ");
     } else newShelves = tag;
 
     fetch(`http://localhost:3000/user_books/${this.state.clickedBook[0].id}`, {
@@ -334,7 +334,7 @@ class HomePage extends React.Component {
       .then(() => {
         this.setState({
           shelves: [newShelves],
-          // tags: [newShelves],
+          tags: [newShelves],
           value: ""
         });
       })
@@ -412,7 +412,7 @@ class HomePage extends React.Component {
       .filter((v, i, a) => a.indexOf(v) === i);
 
     // console.log(listToFilter);
-    console.log(this.state.currentUserBooks);
+
     return (
       <div className="MainPage">
         <div className="banner">
@@ -534,14 +534,26 @@ class HomePage extends React.Component {
                                 </button>
                               </div>
                             ))
-                        : this.state.tags
+                        : this.state.tags.toString() !== "all books"
+                        ? this.state.tags
                             .toString()
                             .split(", ")
                             .map((tag, i) => (
                               <div key={tag + i} className="tag">
                                 {tag}
+                                <button
+                                  className="deleteTag"
+                                  onClick={() => this.deleteTag(tag)}
+                                >
+                                  X
+                                </button>
                               </div>
-                            ))}
+                            ))
+                        : this.state.tags.map((tag, i) => (
+                            <div key={tag + i} className="tag">
+                              {tag}
+                            </div>
+                          ))}
                     </ul>
                     <input
                       type="text"
