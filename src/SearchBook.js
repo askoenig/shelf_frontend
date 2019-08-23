@@ -38,7 +38,10 @@ export default class SearchBook extends Component {
         Accept: "application/json"
       },
       body: JSON.stringify(this.buildBookData())
-    }).then(setTimeout(this.props.addBook, 1000));
+    }).then(() => {
+      this.props.addBook();
+    });
+    // .then(setTimeout(this.props.addBook, 1000));
   };
 
   render() {

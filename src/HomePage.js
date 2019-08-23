@@ -50,14 +50,21 @@ class HomePage extends React.Component {
           "Content-Type": "application/json",
           Accept: "application/json"
         }
-      }).then(
-        this.setState({
-          currentUserBooks: this.state.currentUserBooks.filter(
-            user_book => user_book.id !== bookID
-          )
-        })
-      );
-    this.closeClickedBookDisplay();
+      }).then(() => {
+        fetch(`http://localhost:3000/users/${this.props.user_id}`)
+          .then(response => response.json())
+          .then(userBooksData =>
+            this.setState({
+              currentUserBooks: userBooksData.data.attributes.user_books.sort(
+                (a, b) => a.id - b.id
+              ),
+              grabAllShelves: userBooksData.data.attributes.user_books.sort(
+                (a, b) => a.id - b.id
+              )
+            })
+          );
+      });
+    // this.closeClickedBookDisplay();
   };
 
   grabSearchInput = event => {
