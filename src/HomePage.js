@@ -99,8 +99,7 @@ class HomePage extends React.Component {
 
   closeSearchBookDisplay = () => {
     this.setState({
-      displayBooks: [],
-      searchInput: ""
+      displayBooks: []
     });
   };
 
@@ -458,8 +457,7 @@ class HomePage extends React.Component {
             Search
           </button>
           {/* <button className="searchBooks">Search</button> */}
-          {this.state.searchInput.length > 0 &&
-          this.state.displayBooks.length > 0 ? (
+          {this.state.displayBooks.length > 0 ? (
             <div className="bookSearchResults">
               <button
                 className="closeSearchBookButton"
