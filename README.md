@@ -1,3 +1,44 @@
+### SHELF.
+
+Search millions of books, add selected titles to your own personal virtual bookshelf, record your thoughts about each book and assign your books to one or more Shelves that you create!
+
+### MOTIVATION
+
+I love books, and while I appreciate what other services have built to help readers keep track of the books in their lives, I've always been sad to see that most of these apps have all the visual appeal of an excel spreadsheet with a smattering of CSS. I built Shelf to be an aesthetically pleasing and fun way to keep track of the books in your life. 
+
+### VIDEO EXAMPLE
+
+Here's a link to a vid demo if you'd like to see the project in action:
+
+https://youtu.be/biO_Q5wK4Tw
+
+### TECH
+
+I built this project using:
+
+- JavaScript
+- React.js
+- Google Books API
+- Vanilla CSS
+
+The backend is Ruby on Rails and can be found here: 
+https://github.com/askoenig/shelf_backend
+
+### CODE
+
+This was my first React project and as such, I am still working to properly assign my components the code they are accountable for as opposed to having my homePage.js operate as a huge index.html file of sorts. Any schooling is appreciated. 
+
+### API
+
+I am using the Google Books API to allow users to search for books. Because I am searching on click (via the "Search" button on hitting "Enter" on hte keyboard) as opposed to live re-rendering search results on each individual keystroke, I don't have to use an API key (Google limits their API key usage pretty severely).
+
+### CREDITS
+
+Shout out to this CodePen which inspired me to create this project:
+
+https://codepen.io/kzf/pen/vEYVmL?page=2
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
