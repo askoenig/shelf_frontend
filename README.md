@@ -16,6 +16,7 @@ https://youtu.be/biO_Q5wK4Tw
 
 I built this project using:
 
+- Ruby
 - JavaScript
 - React.js
 - Google Books API
