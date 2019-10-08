@@ -106,7 +106,7 @@
 }
 
 .ChooseSearch {
-  margin-left: 3%;
+  margin-left: 3.5%;
 }
 
 .searchOption {
@@ -116,9 +116,13 @@
   border-radius: 5px;
   padding: 5px;
   outline: none;
-  border: none;
-  background-color: rgba(29, 167, 221, 0.849);
+  border: 2px solid rgba(61, 179, 226, 0.746);
+  background-color: rgb(26, 156, 207);
   color: white;
+}
+
+.searchOption:hover {
+  background-color: rgba(45, 172, 223, 0.746);
 }
 
 .SearchBar input:focus::-webkit-input-placeholder {

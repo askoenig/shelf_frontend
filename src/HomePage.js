@@ -88,6 +88,16 @@ class HomePage extends React.Component {
     }
   };
 
+  searchMyBooks = () => {
+    console.log("Hello");
+    this.setState({
+      currentUserBooks: this.state.currentUserBooks.filter(book =>
+        book.title.includes(this.state.searchInput)
+      ),
+      sortMethod: "shelf"
+    });
+  };
+
   getSearchBoxBooks = () => {
     const searchBoxBooks = this.state.displayBooks.map(book => (
       <SearchBook book={book} addBook={this.putSelectedBookOnShelf} />
@@ -457,7 +467,9 @@ class HomePage extends React.Component {
           </button>{" "} */}
           <div className="ChooseSearch">
             <button className="searchOption">Search All Books</button>
-            <button className="searchOption">Search My Books</button>
+            <button className="searchOption" onClick={this.searchMyBooks}>
+              Search My Books
+            </button>
           </div>
           {/* <button className="searchBooks">Search</button> */}
           {this.state.displayBooks.length > 0 ? (
