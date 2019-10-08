@@ -466,7 +466,9 @@ class HomePage extends React.Component {
             Search
           </button>{" "} */}
           <div className="ChooseSearch">
-            <button className="searchOption">Search All Books</button>
+            <button className="searchOption" onClick={this.searchForBooks}>
+              Search All Books
+            </button>
             <button className="searchOption" onClick={this.searchMyBooks}>
               Search My Books
             </button>
