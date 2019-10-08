@@ -105,6 +105,22 @@
   /* border: 5px solid black; */
 }
 
+.ChooseSearch {
+  margin-left: 3%;
+}
+
+.searchOption {
+  font-size: 18px;
+  margin-right: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  padding: 5px;
+  outline: none;
+  border: none;
+  background-color: rgb(29, 167, 221);
+  color: white;
+}
+
 .SearchBar input:focus::-webkit-input-placeholder {
   color: transparent;
 }

@@ -443,10 +443,7 @@ class HomePage extends React.Component {
             <Link to="/messages">go to messages</Link>
           </li>
         </ul> */}
-        <div className="ChooseSearch">
-          <button className="searchOption">Search All Books</button>
-          <button className="searchOption">Search My Books</button>
-        </div>
+
         <div className="SearchBar">
           <input
             type="text"
@@ -457,7 +454,11 @@ class HomePage extends React.Component {
           />
           <button className="searchBooks" onClick={this.searchForBooks}>
             Search
-          </button>
+          </button>{" "}
+          <div className="ChooseSearch">
+            <button className="searchOption">Search All Books</button>
+            <button className="searchOption">Search My Books</button>
+          </div>
           {/* <button className="searchBooks">Search</button> */}
           {this.state.displayBooks.length > 0 ? (
             <div className="bookSearchResults">
