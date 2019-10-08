@@ -452,9 +452,9 @@ class HomePage extends React.Component {
             onChange={this.grabSearchInput}
             onKeyPress={this.triggerBookSearch}
           />
-          <button className="searchBooks" onClick={this.searchForBooks}>
+          {/* <button className="searchBooks" onClick={this.searchForBooks}>
             Search
-          </button>{" "}
+          </button>{" "} */}
           <div className="ChooseSearch">
             <button className="searchOption">Search All Books</button>
             <button className="searchOption">Search My Books</button>

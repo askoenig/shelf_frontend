@@ -117,7 +117,7 @@
   padding: 5px;
   outline: none;
   border: none;
-  background-color: rgb(29, 167, 221);
+  background-color: rgba(29, 167, 221, 0.849);
   color: white;
 }
 
@@ -133,18 +133,19 @@
   height: 35px;
   width: 25%;
   font-size: 16px;
-  border: 2px solid gray;
+  border: 1px gray;
   border-radius: 30px;
   overflow: hidden;
+  box-shadow: 0px 0px 4px 2px #8c939488;
 }
 
 .SearchBar::placeholder {
   font-size: 16px;
-  color: black;
+  color: gray;
   font-weight: bold;
 }
 
-.searchBooks {
+/* .searchBooks {
   z-index: 2;
   font-family: Lato, sans-serif;
   margin-left: 1%;
@@ -161,7 +162,7 @@
   background-color: rgb(29, 167, 221);
   opacity: 1;
   outline: none;
-}
+} */
 
 .searchBooks:hover {
   /* background-color: rgba(29, 167, 221, 0.431); */
