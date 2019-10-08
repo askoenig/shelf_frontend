@@ -77,9 +77,7 @@ class HomePage extends React.Component {
   searchForBooks = () => {
     if (this.state.searchInput.length > 0) {
       fetch(
-        `https://www.googleapis.com/books/v1/volumes?q=${
-          this.state.searchInput
-        }&printType=books&maxResults=30`
+        `https://www.googleapis.com/books/v1/volumes?q=${this.state.searchInput}&printType=books&maxResults=30`
       )
         .then(response => response.json())
         .then(searchResults =>
@@ -123,7 +121,7 @@ class HomePage extends React.Component {
   };
 
   grabUserThoughts = event => {
-    console.log(event.target);
+    // console.log(event.target);
     this.setState({
       thoughts: event.target.value
     });
@@ -445,6 +443,10 @@ class HomePage extends React.Component {
             <Link to="/messages">go to messages</Link>
           </li>
         </ul> */}
+        <div className="ChooseSearch">
+          <button className="searchOption">Search All Books</button>
+          <button className="searchOption">Search My Books</button>
+        </div>
         <div className="SearchBar">
           <input
             type="text"
