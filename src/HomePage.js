@@ -485,7 +485,7 @@ class HomePage extends React.Component {
               </button>
             ) : null}
             {!this.state.toggleSearchButton ? (
-              <button className="searchOption" onClick={this.refresh}>
+              <button className="searchOption2" onClick={this.refresh}>
                 Back To My Books
               </button>
             ) : null}

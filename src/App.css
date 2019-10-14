@@ -80,7 +80,7 @@
 
 .logOut:hover {
   background-color: white;
-  color: rgba(29, 167, 221, 0.431);
+  color: rgb(29, 167, 221);
 }
 
 .login {
@@ -115,6 +115,7 @@
   font-weight: 550;
   margin-right: 10px;
   margin-top: 10px;
+  margin-left: 5px;
   border-radius: 5px;
   padding: 5px;
   outline: none;
@@ -125,6 +126,24 @@
 
 .searchOption:hover {
   background-color: rgba(45, 172, 223, 0.746);
+}
+
+.searchOption2 {
+  font-size: 18px;
+  font-family: Lato, sans-serif;
+  font-weight: 550;
+  margin-right: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  padding: 5px;
+  outline: none;
+  border: 2px solid rgba(27, 224, 86, 0.781);
+  background-color: rgb(22, 192, 73);
+  color: white;
+}
+
+.searchOption2:hover {
+  background-color: rgba(27, 224, 86, 0.781);
 }
 
 .SearchBar input:focus::-webkit-input-placeholder {
