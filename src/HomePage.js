@@ -19,7 +19,8 @@ class HomePage extends React.Component {
     thoughts: "",
     tags: ["all books"],
     value: "",
-    shelves: ""
+    shelves: "",
+    toggleSearchButton: true
   };
 
   componentDidMount() {
@@ -94,7 +95,16 @@ class HomePage extends React.Component {
       currentUserBooks: this.state.grabAllShelves.filter(book =>
         book.title.includes(this.state.searchInput)
       ),
-      sortMethod: "shelf"
+      sortMethod: "shelf",
+      toggleSearchButton: false
+    });
+  };
+
+  refresh = () => {
+    this.setState({
+      searchInput: "",
+      toggleSearchButton: true,
+      currentUserBooks: this.state.grabAllShelves
     });
   };
 
@@ -469,9 +479,16 @@ class HomePage extends React.Component {
             <button className="searchOption" onClick={this.searchForBooks}>
               Search All Books
             </button>
-            <button className="searchOption" onClick={this.searchMyBooks}>
-              Search My Books
-            </button>
+            {this.state.toggleSearchButton ? (
+              <button className="searchOption" onClick={this.searchMyBooks}>
+                Search My Books
+              </button>
+            ) : null}
+            {!this.state.toggleSearchButton ? (
+              <button className="searchOption" onClick={this.refresh}>
+                Back To My Books
+              </button>
+            ) : null}
           </div>
           {/* <button className="searchBooks">Search</button> */}
           {this.state.displayBooks.length > 0 ? (
