@@ -91,7 +91,7 @@ class HomePage extends React.Component {
   searchMyBooks = () => {
     console.log("Hello");
     this.setState({
-      currentUserBooks: this.state.currentUserBooks.filter(book =>
+      currentUserBooks: this.state.grabAllShelves.filter(book =>
         book.title.includes(this.state.searchInput)
       ),
       sortMethod: "shelf"
