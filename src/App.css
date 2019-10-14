@@ -382,6 +382,7 @@
 }
 
 .tag {
+  z-index: 1;
   color: #fff;
   font-weight: bold;
   background: rgb(29, 167, 221);
@@ -417,10 +418,10 @@
 } */
 
 .typeTag {
-  position: relative;
+  /* position: relative; */
   color: #7f8c8d;
   /* border: 2px solid red; */
-  margin-top: -6px;
+  margin-top: -2.5px;
   margin-bottom: 5px;
   font-size: 10px;
   outline: none;
@@ -435,6 +436,7 @@
 }
 
 .deleteTag {
+  z-index: 1;
   display: inline-block;
   border-radius: 10px;
   margin-left: 4px;
@@ -450,6 +452,7 @@
 }
 
 .deleteTag:hover {
+  z-index: 1;
   background-color: white;
   color: rgb(29, 167, 221);
 }
