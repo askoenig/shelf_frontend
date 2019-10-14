@@ -114,8 +114,8 @@
   font-family: Lato, sans-serif;
   font-weight: 550;
   margin-right: 10px;
-  margin-top: 10px;
-  margin-left: 5px;
+  margin-top: 16px;
+  margin-left: 10px;
   border-radius: 5px;
   padding: 5px;
   outline: none;
@@ -137,13 +137,13 @@
   border-radius: 5px;
   padding: 5px;
   outline: none;
-  border: 2px solid rgba(27, 224, 86, 0.781);
+  border: 2px solid rgb(23, 212, 80);
   background-color: rgb(22, 192, 73);
   color: white;
 }
 
 .searchOption2:hover {
-  background-color: rgba(27, 224, 86, 0.781);
+  background-color: rgb(23, 212, 80);
 }
 
 .SearchBar input:focus::-webkit-input-placeholder {
@@ -152,7 +152,7 @@
 
 .SearchBar input {
   outline: none;
-  margin-left: 1%;
+  margin-left: 1.5%;
   margin-top: 0.5%;
   padding-left: 0.5%;
   height: 35px;
@@ -349,12 +349,12 @@
 }
 
 .chooseShelf {
-  float: left;
+  /* float: left; */
   position: absolute;
   z-index: -3;
   color: black;
   margin-top: 3%;
-  margin-left: 1%;
+  margin-left: 2%;
   font-family: Lato, sans-serif;
   font-size: 20px;
   font-weight: 400;
@@ -374,8 +374,8 @@
   position: absolute;
   z-index: -3;
   color: black;
-  margin-top: 6.6%;
-  margin-left: 1%;
+  margin-top: 6.3%;
+  margin-left: 2%;
   font-family: Lato, sans-serif;
   font-size: 20px;
   font-weight: 400;
