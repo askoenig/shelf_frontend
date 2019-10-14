@@ -182,7 +182,8 @@
 }
 
 .bookSearchResults {
-  z-index: -1;
+  position: absolute;
+  z-index: 1;
   float: left;
   border: ridge rgb(107, 60, 16);
   height: 400px;
