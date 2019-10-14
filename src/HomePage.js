@@ -583,15 +583,17 @@ class HomePage extends React.Component {
                             </div>
                           ))}
                     </ul>
-                    <input
-                      type="text"
-                      placeholder="Add to Shelf.."
-                      // value="Add tag.."
-                      onChange={this.handleChange}
-                      className="typeTag"
-                      onKeyUp={this.handleKeyUp}
-                      onKeyDown={this.handleKeyDown}
-                    />
+                    <div className="typeTag">
+                      <input
+                        type="text"
+                        placeholder="Add to Shelf.."
+                        // value="Add tag.."
+                        onChange={this.handleChange}
+                        // className="typeTag"
+                        onKeyUp={this.handleKeyUp}
+                        onKeyDown={this.handleKeyDown}
+                      />
+                    </div>
                   </div>
                   <small>
                     Type and press <code>enter</code> to add a SHELF tag. Press{" "}

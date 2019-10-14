@@ -417,12 +417,11 @@
 } */
 
 .typeTag {
-  float: left;
-  padding: 5px 10px;
-  box-sizing: border-box;
+  position: relative;
   color: #7f8c8d;
-  border: 2px solid red;
-  margin-left: -25px;
+  /* border: 2px solid red; */
+  margin-top: -6px;
+  margin-bottom: 5px;
   font-size: 10px;
   outline: none;
 }
