@@ -91,13 +91,15 @@ class HomePage extends React.Component {
 
   searchMyBooks = () => {
     console.log("Hello");
-    this.setState({
-      currentUserBooks: this.state.grabAllShelves.filter(book =>
-        book.title.includes(this.state.searchInput)
-      ),
-      sortMethod: "shelf",
-      toggleSearchButton: false
-    });
+    if (this.state.searchInput) {
+      this.setState({
+        currentUserBooks: this.state.grabAllShelves.filter(book =>
+          book.title.includes(this.state.searchInput)
+        ),
+        sortMethod: "shelf",
+        toggleSearchButton: false
+      });
+    }
   };
 
   refresh = () => {

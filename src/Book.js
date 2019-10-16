@@ -90,6 +90,7 @@ export default class Book extends Component {
   render() {
     const bookColor = {
       backgroundColor: this.stringToColour(this.props.book.googleBookId)
+      // height: `${Math.floor(Math.random() * 20 + 180)}px`
     };
     // const bookHeight = {
     //   height: this.randomIntFromInterval()

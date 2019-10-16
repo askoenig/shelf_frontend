@@ -7,7 +7,7 @@
   } */
 
 .bookshelf {
-  padding-left: 8px;
+  padding-left: 4px;
   padding-right: 4px;
   position: absolute;
   border-radius: 25px;
@@ -38,12 +38,12 @@
   width: 40px;
   float: left;
   color: white;
-  font-size: 1.1em;
-  -webkit-text-stroke: 0.2px black;
+  font-size: 1.12em;
+  -webkit-text-stroke: 0.3px black;
   /* font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif,
     sans-serif; */
   font-family: Lato, serif;
-  font-weight: bold;
+  font-weight: 550;
   margin-bottom: 10px;
   margin-top: 20px;
   margin-right: 1px;
