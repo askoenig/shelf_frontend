@@ -252,6 +252,7 @@
   border-radius: 4px;
   font-size: 16px;
   border: gray;
+  outline: none;
 }
 
 .closeSearchBookButton:hover {
@@ -314,6 +315,7 @@
   border-radius: 4px;
   font-size: 16px;
   border: gray;
+  outline: none;
 }
 
 .closeClickedBookButton:hover {
@@ -346,6 +348,7 @@
   font-size: 18px;
   margin-left: 66%;
   margin-bottom: 0;
+  outline: none;
 }
 
 .submitThoughts:hover {

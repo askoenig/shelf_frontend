@@ -20,7 +20,8 @@ class HomePage extends React.Component {
     tags: ["all books"],
     value: "",
     shelves: "",
-    toggleSearchButton: true
+    toggleSearchButton: true,
+    showMore: false
   };
 
   componentDidMount() {
@@ -140,6 +141,12 @@ class HomePage extends React.Component {
     if (event.key === "Enter" && this.state.searchInput.length > 0) {
       this.searchForBooks();
     }
+  };
+
+  showMore = () => {
+    this.setState({
+      showMore: true
+    });
   };
 
   grabUserThoughts = event => {
@@ -541,7 +548,25 @@ class HomePage extends React.Component {
                   Original Language:{" "}
                   {this.state.clickedBook[0].attributes.book.language}
                 </h4>
-                <h4>{this.state.clickedBook[0].attributes.book.description}</h4>
+                <h4>
+                  {this.state.clickedBook[0].attributes.book.description}
+                  {/* {!this.state.showMore &&
+                  this.state.clickedBook[0].attributes.book.description.length <
+                    550
+                    ? this.state.clickedBook[0].attributes.book.description
+                    : this.state.clickedBook[0].attributes.book.description.substr(
+                        0,
+                        600
+                      ) + `${" . " + ". " + ". "}`}
+                  {this.state.clickedBook[0].attributes.book.description
+                    .length > 550 ? (
+                    <button onClick={this.showMore}>Show More</button>
+                  ) : null}
+                  {this.state.showMore
+                    ? this.state.clickedBook[0].attributes.book.description
+                    : null} */}
+                </h4>
+
                 <div>
                   <h3>Your thoughts:</h3>
                   <div>
