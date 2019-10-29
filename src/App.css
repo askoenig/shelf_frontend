@@ -135,8 +135,8 @@
   font-family: Lato, sans-serif;
   font-weight: 550;
   margin-right: 10px;
-  margin-top: 16px;
   margin-left: 10px;
+  margin-top: 16px;
   border-radius: 5px;
   padding: 5px;
   outline: none;
@@ -408,11 +408,11 @@
 /* TAG ATTEMPT */ /* TAG ATTEMPT */
 .tags {
   background: #fff;
-  overflow: hidden;
+  /* overflow: hidden; */
   font-size: 20px;
-  margin-top: -25px;
+  margin-top: -10px;
 
-  /* border: 2px solid red; */
+  /* border: 2px solid green; */
 }
 
 .tag {
@@ -455,10 +455,11 @@
   /* position: relative; */
   color: #7f8c8d;
   /* border: 2px solid red; */
-  margin-top: -2px;
-  margin-bottom: 2px;
+  margin-top: 0px;
+  margin-bottom: 0px;
   font-size: 10px;
   outline: none;
+  /* border: 2px solid red; */
 }
 
 .typeTag::placeholder {
@@ -467,6 +468,10 @@
 
 .typeTag input {
   padding-left: 15px;
+  margin-left: 5px;
+  margin-top: 2px;
+  height: 32px;
+  /* border: 1px solid blue; */
 }
 
 .deleteTag {
