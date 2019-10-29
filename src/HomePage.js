@@ -92,10 +92,11 @@ class HomePage extends React.Component {
 
   searchMyBooks = () => {
     console.log("Hello");
+
     if (this.state.searchInput) {
       this.setState({
         currentUserBooks: this.state.grabAllShelves.filter(book =>
-          book.title.includes(this.state.searchInput)
+          book.title.toLowerCase().includes(this.state.searchInput)
         ),
         sortMethod: "shelf",
         toggleSearchButton: false
@@ -105,7 +106,7 @@ class HomePage extends React.Component {
 
   refresh = () => {
     this.setState({
-      searchInput: "",
+      // searchInput: "",
       toggleSearchButton: true,
       currentUserBooks: this.state.grabAllShelves
     });
