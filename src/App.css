@@ -61,7 +61,10 @@
 
 .welcome {
   font-family: Lato, sans-serif;
+  width: 300px;
   margin-left: 14%;
+  margin-top: 60px;
+  /* border: 15px solid green; */
   /* color: #2c1e0b; */
 }
 
