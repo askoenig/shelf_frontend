@@ -459,9 +459,6 @@ class HomePage extends React.Component {
       <div className="MainPage">
         <div className="banner">
           SHELF.
-          {this.state.chosenShelf && (
-            <div className="currentShelf">{`${this.state.chosenShelf}`}</div>
-          )}
           {this.props.username && (
             <button className="logOut" onClick={this.logOut}>
               {" "}
@@ -469,6 +466,9 @@ class HomePage extends React.Component {
             </button>
           )}
         </div>
+        {this.state.chosenShelf && (
+          <div className="currentShelf">{`${this.state.chosenShelf}`}</div>
+        )}
         <div className="welcome">
           {/* <button className="logOut" /> */}
           <h1> {this.props.username && `Hello, ${this.props.username}!`}</h1>
