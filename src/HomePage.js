@@ -228,7 +228,8 @@ class HomePage extends React.Component {
           this.setState({
             currentUserBooks: userBooksData.data.attributes.user_books.sort(
               (a, b) => a.id - b.id
-            )
+            ),
+            chosenShelf: null
           })
         );
     } else {
@@ -459,9 +460,7 @@ class HomePage extends React.Component {
         <div className="banner">
           SHELF.
           {this.state.chosenShelf && (
-            <div className="currentShelf">
-              {`${this.state.chosenShelf}` + " SHELF"}
-            </div>
+            <div className="currentShelf">{`${this.state.chosenShelf}`}</div>
           )}
           {this.props.username && (
             <button className="logOut" onClick={this.logOut}>
