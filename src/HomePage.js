@@ -147,6 +147,7 @@ class HomePage extends React.Component {
     this.setState({
       showMore: true
     });
+    return "OOGA BOOGA";
   };
 
   grabUserThoughts = event => {
@@ -235,6 +236,7 @@ class HomePage extends React.Component {
         currentUserBooks: shelfBooks.filter(book =>
           book.shelves.includes(event.target.value)
         ),
+        chosenShelf: event.target.value,
         sortMethod: "shelf"
       });
     }
@@ -456,6 +458,11 @@ class HomePage extends React.Component {
       <div className="MainPage">
         <div className="banner">
           SHELF.
+          {this.state.chosenShelf && (
+            <div className="currentShelf">
+              {`${this.state.chosenShelf}` + " SHELF"}
+            </div>
+          )}
           {this.props.username && (
             <button className="logOut" onClick={this.logOut}>
               {" "}
@@ -549,22 +556,25 @@ class HomePage extends React.Component {
                   {this.state.clickedBook[0].attributes.book.language}
                 </h4>
                 <h4>
-                  {this.state.clickedBook[0].attributes.book.description}
-                  {/* {!this.state.showMore &&
+                  {/* {this.state.clickedBook[0].attributes.book.description} */}
+                  {!this.state.showMore &&
                   this.state.clickedBook[0].attributes.book.description.length <
                     550
                     ? this.state.clickedBook[0].attributes.book.description
-                    : this.state.clickedBook[0].attributes.book.description.substr(
+                    : (this.state.clickedBook[0].attributes.book.description.substr(
                         0,
                         600
-                      ) + `${" . " + ". " + ". "}`}
-                  {this.state.clickedBook[0].attributes.book.description
-                    .length > 550 ? (
+                      ),
+                      <button onClick={this.showMore}>Show More</button>)}
+
+                  {/* {!this.state.showMore &&
+                  this.state.clickedBook[0].attributes.book.description.length >
+                    550 ? (
                     <button onClick={this.showMore}>Show More</button>
-                  ) : null}
+                  ) : null} */}
                   {this.state.showMore
                     ? this.state.clickedBook[0].attributes.book.description
-                    : null} */}
+                    : null}
                 </h4>
 
                 <div>

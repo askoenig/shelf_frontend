@@ -68,6 +68,15 @@
   /* color: #2c1e0b; */
 }
 
+.currentShelf {
+  font-family: Lato, sans-serif;
+  width: max-content;
+  padding: 0;
+  margin-left: 53%;
+  margin-top: -80px;
+  border: solid red 2px;
+}
+
 .logOut {
   position: absolute;
   padding: 0.5%;
