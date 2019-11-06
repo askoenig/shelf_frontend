@@ -79,10 +79,10 @@
   width: max-content;
   height: 30px;
   line-height: 30px;
-  margin-left: 50%;
-  margin-top: -27px;
-  padding-right: 2px;
-  padding-left: 2px;
+  margin-left: 65%;
+  margin-top: -29px;
+  padding-right: 3px;
+  padding-left: 3px;
   border: solid black 2px;
   background: white;
 }
@@ -150,6 +150,8 @@
   /* background-color: rgba(45, 172, 223, 0.746); */
   border: 2px solid rgb(9, 135, 185);
   color: white;
+  /* color: rgb(29, 167, 221);
+  background-color: white; */
 }
 
 .searchOption2 {
