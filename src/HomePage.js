@@ -144,9 +144,15 @@ class HomePage extends React.Component {
   };
 
   showMore = () => {
-    this.setState({
-      showMore: true
-    });
+    if (!this.state.showMore) {
+      this.setState({
+        showMore: true
+      });
+    } else {
+      this.setState({
+        showMore: false
+      });
+    }
   };
 
   resetShowMore = () => {
@@ -589,11 +595,10 @@ class HomePage extends React.Component {
                     550 ? (
                     <button onClick={this.showMore}>Show More</button>
                   ) : null} */}
-                  {this.state.showMore
-                    ? this.state.clickedBook[0].attributes.book.description.substr(
-                        600
-                      )
-                    : null}
+                  {this.state.showMore &&
+                    this.state.clickedBook[0].attributes.book.description.substr(
+                      600
+                    ) && <button onClick={this.showMore}>Show Less</button>}
                 </h4>
 
                 <div>
