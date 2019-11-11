@@ -72,13 +72,13 @@
   position: absolute;
   text-align: center;
   z-index: 1;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 400;
   font-weight: bold;
   font-family: Lato, sans-serif;
   width: max-content;
-  height: 32px;
-  line-height: 32px;
+  height: 30px;
+  line-height: 30px;
   margin-left: 65%;
   margin-top: -32px;
   padding-right: 4px;

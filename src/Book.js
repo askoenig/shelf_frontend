@@ -9,6 +9,7 @@ export default class Book extends Component {
 
   handleClick = () => {
     // console.log(this.props.book);
+    this.props.showMore();
     this.props.clickBook(this.props.book.id);
     // let clickedBook = "";
     // fetch(`http://localhost:3000/books/${this.props.book.book_id}`)

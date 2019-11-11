@@ -13,7 +13,7 @@ class HomePage extends React.Component {
     displayBooks: [],
     currentUserBooks: [],
     grabAllShelves: [],
-    clickedBook: [],
+    clickedBook: false,
     chosenShelf: "",
     sortMethod: "",
     thoughts: "",
@@ -147,7 +147,12 @@ class HomePage extends React.Component {
     this.setState({
       showMore: true
     });
-    return "OOGA BOOGA";
+  };
+
+  resetShowMore = () => {
+    this.setState({
+      showMore: false
+    });
   };
 
   grabUserThoughts = event => {
@@ -213,7 +218,7 @@ class HomePage extends React.Component {
 
   closeClickedBookDisplay = () => {
     this.setState({
-      clickedBook: []
+      clickedBook: false
     });
   };
 
@@ -432,8 +437,16 @@ class HomePage extends React.Component {
   };
 
   render() {
-    // console.log(this.state.grabAllShelves);
-    let allLoadedUserBooks = "";
+    console.log("do it be like that?", this.state.showMore);
+    let allLoadedUserBooks;
+    let ellipses;
+    if (this.state.clickedBook && !this.state.showMore) {
+      ellipses =
+        this.state.clickedBook[0].attributes.book.description.substr(0, 600) +
+        "...";
+    } else if (this.state.clickedBook && this.state.showMore) {
+      ellipses = this.state.clickedBook[0].attributes.book.description;
+    }
     if (this.state.currentUserBooks.length > 0) {
       allLoadedUserBooks = this.state.currentUserBooks.map(book => {
         return (
@@ -441,6 +454,7 @@ class HomePage extends React.Component {
             book={book}
             grabID={this.getBookChoosenForRemoval}
             clickBook={this.displayClickedBookDetails}
+            showMore={this.resetShowMore}
           />
         );
       });
@@ -466,8 +480,10 @@ class HomePage extends React.Component {
             </button>
           )}
         </div>
-        {this.state.chosenShelf && (
+        {this.state.chosenShelf ? (
           <div className="currentShelf">{`${this.state.chosenShelf}`}</div>
+        ) : (
+          <div className="currentShelf">All Books</div>
         )}
         <div className="welcome">
           {/* <button className="logOut" /> */}
@@ -560,19 +576,21 @@ class HomePage extends React.Component {
                   this.state.clickedBook[0].attributes.book.description.length <
                     550
                     ? this.state.clickedBook[0].attributes.book.description
-                    : (this.state.clickedBook[0].attributes.book.description.substr(
-                        0,
-                        600
-                      ),
-                      <button onClick={this.showMore}>Show More</button>)}
-
+                    : ellipses}
+                  {!this.state.showMore &&
+                    this.state.clickedBook[0].attributes.book.description
+                      .length > 550 && (
+                      <button onClick={this.showMore}>Show More</button>
+                    )}
                   {/* {!this.state.showMore &&
                   this.state.clickedBook[0].attributes.book.description.length >
                     550 ? (
                     <button onClick={this.showMore}>Show More</button>
                   ) : null} */}
                   {this.state.showMore
-                    ? this.state.clickedBook[0].attributes.book.description
+                    ? this.state.clickedBook[0].attributes.book.description.substr(
+                        600
+                      )
                     : null}
                 </h4>
 
