@@ -580,7 +580,9 @@ class HomePage extends React.Component {
                   {!this.state.showMore &&
                     this.state.clickedBook[0].attributes.book.description
                       .length > 550 && (
-                      <button onClick={this.showMore}>Show More</button>
+                      <button className="showMore" onClick={this.showMore}>
+                        Show More
+                      </button>
                     )}
                   {/* {!this.state.showMore &&
                   this.state.clickedBook[0].attributes.book.description.length >

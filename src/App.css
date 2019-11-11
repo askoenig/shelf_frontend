@@ -351,6 +351,13 @@
     0 10px 35px 0 rgba(0, 0, 0, 0.19); */
 }
 
+.showMore {
+  border: 1.75px solid rgb(9, 135, 185);
+  background-color: white;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
 .typeYourThoughts {
   font-size: 18px;
   border: 2px solid black;
