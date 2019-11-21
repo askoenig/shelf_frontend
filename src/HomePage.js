@@ -95,7 +95,9 @@ class HomePage extends React.Component {
     if (this.state.searchInput) {
       this.setState({
         currentUserBooks: this.state.grabAllShelves.filter(book =>
-          book.title.toLowerCase().includes(this.state.searchInput)
+          book.title
+            .toLowerCase()
+            .includes(this.state.searchInput.toLowerCase())
         ),
         sortMethod: "shelf",
         toggleSearchButton: false
