@@ -491,7 +491,7 @@ class HomePage extends React.Component {
         {this.state.chosenShelf ? (
           <div className="currentShelfOption2">{`${this.state.chosenShelf}`}</div>
         ) : (
-          <div className="currentShelfOption2">All Books</div>
+          <div className="currentShelfOption2">My Books</div>
         )}
         <div className="welcome">
           {/* <button className="logOut" /> */}

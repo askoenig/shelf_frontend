@@ -92,23 +92,19 @@
 .currentShelfOption2 {
   position: absolute;
   text-align: center;
+  margin-left: 50%;
   z-index: 1;
-  font-size: 3.5rem;
+  font-size: 3.25rem;
   /* font-weight: 400;
   font-weight: bold; */
   font-family: Lato, sans-serif;
   width: max-content;
   height: 30px;
   line-height: 30px;
-  margin-left: 60%;
   margin-top: -42px;
   padding-right: 4px;
   padding-left: 4px;
   color: white;
-  /* border-radius: 6px;
-  box-shadow: -2px 1px 2px 0px; */
-  /* border: solid black 2px; */
-  /* background: white; */
 }
 
 .logOut {
