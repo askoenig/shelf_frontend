@@ -17,7 +17,7 @@ class HomePage extends React.Component {
     chosenShelf: "",
     sortMethod: "",
     thoughts: "",
-    tags: ["my books"],
+    tags: ["My Books"],
     value: "",
     shelves: "",
     toggleSearchButton: true,
@@ -219,7 +219,7 @@ class HomePage extends React.Component {
           clickedBook: [clickedBookData.data],
           thoughts: clickedBookData.data.attributes.thoughts || "",
           shelves: [clickedBookData.data.attributes.shelves] || "",
-          tags: ["my books"]
+          tags: ["My Books"]
         })
       );
   };
