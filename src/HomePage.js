@@ -17,7 +17,7 @@ class HomePage extends React.Component {
     chosenShelf: "",
     sortMethod: "",
     thoughts: "",
-    tags: ["all books"],
+    tags: ["my books"],
     value: "",
     shelves: "",
     toggleSearchButton: true,
@@ -219,7 +219,7 @@ class HomePage extends React.Component {
           clickedBook: [clickedBookData.data],
           thoughts: clickedBookData.data.attributes.thoughts || "",
           shelves: [clickedBookData.data.attributes.shelves] || "",
-          tags: ["all books"]
+          tags: ["my books"]
         })
       );
   };
@@ -234,7 +234,7 @@ class HomePage extends React.Component {
     let shelfBooks = this.state.grabAllShelves.filter(
       userbook => userbook.shelves != null
     );
-    if (event.target.value === "All Books") {
+    if (event.target.value === "My Books") {
       fetch(`http://localhost:3000/users/${this.props.user_id}`)
         .then(response => response.json())
         .then(userBooksData =>
@@ -642,7 +642,7 @@ class HomePage extends React.Component {
                                 </button>
                               </div>
                             ))
-                        : this.state.tags.toString() !== "all books"
+                        : this.state.tags.toString() !== "My Books"
                         ? this.state.tags
                             .toString()
                             .split(", ")
@@ -694,7 +694,7 @@ class HomePage extends React.Component {
             <option value="" disabled selected>
               Shelves
             </option>
-            <option value="All Books">All Books</option>
+            <option value="My Books">My Books</option>
             {shelves.map(shelf => (
               <option value={`${shelf}`}>{`${shelf}`}</option>
             ))}
