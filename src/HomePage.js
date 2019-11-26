@@ -257,29 +257,15 @@ class HomePage extends React.Component {
   };
 
   clickTag = tag => {
-    // let shelfBooks = this.state.grabAllShelves.filter(
-    //   userbook => userbook.shelves != null
-    // );
-    // if (event.target.value === "My Books") {
-    //   fetch(`http://localhost:3000/users/${this.props.user_id}`)
-    //     .then(response => response.json())
-    //     .then(userBooksData =>
-    //       this.setState({
-    //         currentUserBooks: userBooksData.data.attributes.user_books.sort(
-    //           (a, b) => a.id - b.id
-    //         ),
-    //         chosenShelf: null
-    //       })
-    //     );
-    // } else {
-    //   this.setState({
-    //     currentUserBooks: shelfBooks.filter(book =>
-    //       book.shelves.includes(event.target.value)
-    //     ),
-    //     chosenShelf: event.target.value,
-    //     sortMethod: "shelf"
-    //   });
-    // }
+    let shelfBooks = this.state.grabAllShelves.filter(
+      userbook => userbook.shelves != null
+    );
+    console.log(tag);
+    // this.setState({
+    //   currentUserBooks: shelfBooks.filter(book => book.shelves.includes(tag)),
+    //   chosenShelf: tag,
+    //   sortMethod: "shelf"
+    // });
   };
 
   selectSort = event => {
@@ -661,7 +647,7 @@ class HomePage extends React.Component {
                               <div
                                 key={tag + i}
                                 className="tag"
-                                onClick={() => this.clickTag()}
+                                onClick={() => this.clickTag(tag)}
                               >
                                 {tag}
                                 <button
