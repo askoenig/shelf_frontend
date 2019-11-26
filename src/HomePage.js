@@ -718,9 +718,11 @@ class HomePage extends React.Component {
               </option>
             )}
             <option value="My Books">My Books</option>
-            {shelves.map(shelf => (
-              <option value={`${shelf}`}>{`${shelf}`}</option>
-            ))}
+            {shelves
+              .sort((a, b) => a.localeCompare(b))
+              .map(shelf => (
+                <option value={`${shelf}`}>{`${shelf}`}</option>
+              ))}
             {/* <option value="Safari">Safari</option>
             <option value="Firefox">Firefox</option>
             <option value="Chrome">Chrome</option>
