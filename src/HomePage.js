@@ -658,7 +658,11 @@ class HomePage extends React.Component {
                             .toString()
                             .split(", ")
                             .map((tag, i) => (
-                              <div key={tag + i} className="tag">
+                              <div
+                                key={tag + i}
+                                className="tag"
+                                onClick={() => this.clickTag()}
+                              >
                                 {tag}
                                 <button
                                   className="deleteTag"
