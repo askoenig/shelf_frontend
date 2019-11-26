@@ -260,12 +260,12 @@ class HomePage extends React.Component {
     let shelfBooks = this.state.grabAllShelves.filter(
       userbook => userbook.shelves != null
     );
-    console.log(tag);
-    // this.setState({
-    //   currentUserBooks: shelfBooks.filter(book => book.shelves.includes(tag)),
-    //   chosenShelf: tag,
-    //   sortMethod: "shelf"
-    // });
+    // console.log(tag);
+    this.setState({
+      currentUserBooks: shelfBooks.filter(book => book.shelves.includes(tag)),
+      chosenShelf: tag.toString(),
+      sortMethod: "shelf"
+    });
   };
 
   selectSort = event => {
@@ -457,7 +457,8 @@ class HomePage extends React.Component {
   };
 
   render() {
-    console.log("do it be like that?", this.state.showMore);
+    // console.log("do it be like that?", this.state.showMore);
+    console.log(this.state.chosenShelf);
     let allLoadedUserBooks;
     let ellipses;
     if (this.state.clickedBook && !this.state.showMore) {
@@ -707,9 +708,15 @@ class HomePage extends React.Component {
             onChange={this.selectShelf}
           >
             {/* <datalist id="browsers"> */}
-            <option value="" disabled selected>
-              Shelves
-            </option>
+            {this.state.chosenShelf ? (
+              <option
+                value={`${this.state.chosenShelf}`}
+              >{`${this.state.chosenShelf}`}</option>
+            ) : (
+              <option value="" disabled selected>
+                My Books
+              </option>
+            )}
             <option value="My Books">My Books</option>
             {shelves.map(shelf => (
               <option value={`${shelf}`}>{`${shelf}`}</option>
