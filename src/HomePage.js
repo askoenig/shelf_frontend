@@ -380,7 +380,7 @@ class HomePage extends React.Component {
     let newShelves = this.state.shelves
       .toString()
       .split(", ")
-      .filter(shelf => shelf != tag)
+      .filter(shelf => shelf !== tag)
       .join(", ");
     // console.log([newShelves]);
     this.setState({
