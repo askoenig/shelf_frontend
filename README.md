@@ -20,7 +20,7 @@ I built this project using:
 - JavaScript
 - React.js
 - Google Books API
-- Vanilla CSS
+- CSS
 
 The backend is Ruby on Rails and can be found here: 
 https://github.com/askoenig/shelf_backend
