@@ -4,11 +4,10 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
-import LoginPage from "./LoginPage";
 
 ReactDOM.render(
   <BrowserRouter>
-    <LoginPage />
+    <App />
   </BrowserRouter>,
   document.getElementById("root")
 );

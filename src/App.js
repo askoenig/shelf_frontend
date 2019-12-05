@@ -45,7 +45,7 @@ class App extends React.Component {
             <SignUpPage getCurrentUser={this.getCurrentUser} {...routerProps} />
           )}
         />
-        <Route
+        {/* <Route
           path="/messages"
           render={routerProps => (
             <MessagesPage
@@ -53,18 +53,26 @@ class App extends React.Component {
               username={this.state.user.username}
             />
           )}
-        />
+        /> */}
         <Route
           exact
           path="/"
-          render={routerProps =>
-            this.state.user && (
-              <HomePage
-                {...routerProps}
-                user_id={this.state.user.id}
-                username={this.state.user.username}
-              />
-            )
+          render={
+            this.state.user.id
+              ? routerProps =>
+                  this.state.user && (
+                    <HomePage
+                      {...routerProps}
+                      user_id={this.state.user.id}
+                      username={this.state.user.username}
+                    />
+                  )
+              : routerProps => (
+                  <LoginPage
+                    getCurrentUser={this.getCurrentUser}
+                    {...routerProps}
+                  />
+                )
           }
         />
         <Route component={FourOhFourPage} />
