@@ -45,15 +45,6 @@ class App extends React.Component {
             <SignUpPage getCurrentUser={this.getCurrentUser} {...routerProps} />
           )}
         />
-        {/* <Route
-          path="/messages"
-          render={routerProps => (
-            <MessagesPage
-              {...routerProps}
-              username={this.state.user.username}
-            />
-          )}
-        /> */}
         <Route
           exact
           path="/"
