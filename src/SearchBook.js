@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 export default class SearchBook extends Component {
+  // this function is triggered within the handleClick. It scrapes the chosen data from the Google Books API and builds it into an object
   buildBookData = () => {
     const bookData = {
       googleBookId: this.props.book.id.toString(),
@@ -24,12 +25,8 @@ export default class SearchBook extends Component {
     };
     return bookData;
   };
-
-  // handleClick = () => {
-  //   this.props.addBook(this.buildBookData());
-  // };
+  // when a user clicks the add book button, the SHELF API route findcreate looks to see if the chosen book exists in the SHLEF API. If not, the book is created and then a user_book is created. It the chosen book already exists, the user_book is created.
   handleClick = event => {
-    // event.preventDefault();
     fetch("http://localhost:3000/findcreate", {
       method: "POST",
       headers: {
@@ -41,7 +38,6 @@ export default class SearchBook extends Component {
     }).then(() => {
       this.props.addBook();
     });
-    // .then(setTimeout(this.props.addBook, 1000));
   };
 
   render() {
