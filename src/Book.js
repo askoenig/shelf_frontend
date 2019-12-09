@@ -8,35 +8,7 @@ export default class Book extends Component {
   };
 
   handleClick = () => {
-    // console.log(this.props.book);
-    this.props.showMore();
     this.props.clickBook(this.props.book.id);
-    // let clickedBook = "";
-    // fetch(`http://localhost:3000/books/${this.props.book.book_id}`)
-    //   .then(response => response.json())
-    //   .then(
-    //     bookData =>
-    //       (clickedBook = (
-    // <div className="searchBookInfo">
-    //   <img
-    //     className="searchBookImage"
-    //     src={bookData.data.attributes.image}
-    //     alt="oh no"
-    //   />
-    //   <h2>
-    //     {bookData.data.attributes.title}
-    //     {bookData.data.attributes.subtitle}
-    //   </h2>
-    //   <h4>by: {bookData.data.attributes.authors}</h4>
-    //   <h4>Pages: {bookData.data.attributes.pageCount}</h4>
-    //   <h4>Published: {bookData.data.attributes.publishedDate}</h4>
-    //   <h4>Categories: {bookData.data.attributes.categories}</h4>
-    //   <h4>Original Language: {bookData.data.attributes.language}</h4>
-    //   <h5>{bookData.data.attributes.description}</h5>
-    // </div>
-    //       ))
-    //   );
-    // return clickedBook;
   };
 
   passBookToDeleteFetch = e => {
