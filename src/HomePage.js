@@ -1,6 +1,5 @@
-import React from "react";
-// import SearchModal from "./SearchModal";
 // import { Link } from "react-router-dom";
+import React from "react";
 import Bookshelf from "./Bookshelf";
 import "./Bookshelf.css";
 import SearchBook from "./SearchBook";
@@ -23,7 +22,7 @@ class HomePage extends React.Component {
     toggleSearchButton: true,
     showMore: false
   };
-
+  // if no sort method has been chosen, load all user_books
   componentDidMount() {
     if (this.state.sortMethod.length < 1) {
       fetch(`http://localhost:3000/users/${this.props.user_id}`)
@@ -40,7 +39,7 @@ class HomePage extends React.Component {
         );
     }
   }
-
+  // when a user deletes a book, delete it from SHELF API and update the bookshelf
   getBookChoosenForRemoval = bookID => {
     window.confirm(
       "Are you sure you wish to delete this book from your Shelf?"
@@ -66,7 +65,6 @@ class HomePage extends React.Component {
             })
           );
       });
-    // this.closeClickedBookDisplay();
   };
 
   grabSearchInput = event => {
@@ -75,7 +73,7 @@ class HomePage extends React.Component {
       searchInput: event.target.value
     });
   };
-
+  // search the Google Books API and trigger getSearchBoxBooks to build SearchBooks
   searchForBooks = () => {
     if (this.state.searchInput.length > 0) {
       fetch(
@@ -89,9 +87,8 @@ class HomePage extends React.Component {
         );
     }
   };
-
+  // search logged in user user_books
   searchMyBooks = () => {
-    // console.log("Hello");
     if (this.state.searchInput) {
       this.setState({
         currentUserBooks: this.state.grabAllShelves.filter(book =>
@@ -107,7 +104,6 @@ class HomePage extends React.Component {
 
   refresh = () => {
     this.setState({
-      // searchInput: "",
       toggleSearchButton: true,
       currentUserBooks: this.state.grabAllShelves
     });
@@ -125,7 +121,7 @@ class HomePage extends React.Component {
       displayBooks: []
     });
   };
-
+  // triggered when a user clicks Add Book, updates bookshelf to add new book
   putSelectedBookOnShelf = () => {
     console.log("Hello");
     fetch(`http://localhost:3000/users/${this.props.user_id}`)
@@ -138,13 +134,13 @@ class HomePage extends React.Component {
         })
       );
   };
-
+  // enables search when user clicks enter key
   triggerBookSearch = event => {
     if (event.key === "Enter" && this.state.searchInput.length > 0) {
       this.searchForBooks();
     }
   };
-
+  // show more functionality for longer book descriptions
   showMore = () => {
     if (!this.state.showMore) {
       this.setState({
@@ -174,9 +170,8 @@ class HomePage extends React.Component {
     e.target.style.height = "inherit";
     e.target.style.height = `${e.target.scrollHeight}px`;
   }
-
+  // update user_book thoughts
   editBookThoughts = event => {
-    // event.preventDefault();
     fetch(`http://localhost:3000/user_books/${this.state.clickedBook[0].id}`, {
       method: "PATCH",
       headers: {
@@ -212,6 +207,7 @@ class HomePage extends React.Component {
   // };
 
   displayClickedBookDetails = bookIdUserClicked => {
+    // fetch data belonging to clickedBook
     fetch(`http://localhost:3000/user_books/${bookIdUserClicked}`)
       .then(response => response.json())
       .then(clickedBookData =>
@@ -229,7 +225,7 @@ class HomePage extends React.Component {
       clickedBook: false
     });
   };
-
+  // allow user to load a chosen shelf
   selectShelf = event => {
     let shelfBooks = this.state.grabAllShelves.filter(
       userbook => userbook.shelves != null
@@ -255,22 +251,19 @@ class HomePage extends React.Component {
       });
     }
   };
-
+  // when a user clicks a tag, the shelf belonging to that tag will load
   clickTag = tag => {
     let shelfBooks = this.state.grabAllShelves.filter(
       userbook => userbook.shelves != null
     );
-    // console.log(tag);
     this.setState({
       currentUserBooks: shelfBooks.filter(book => book.shelves.includes(tag)),
       chosenShelf: tag.toString(),
       sortMethod: "shelf"
     });
   };
-
+  // allow user to chose a sorting method
   selectSort = event => {
-    // console.log(event.target.value);
-    // console.log(this.state.currentUserBooks);
     if (event.target.value === "Date Added") {
       this.setState({
         currentUserBooks: this.state.currentUserBooks.sort(
@@ -280,33 +273,25 @@ class HomePage extends React.Component {
       });
     }
     if (event.target.value === "Alphabetically") {
-      // fetch(`http://localhost:3000/users/${this.props.user_id}`)
-      //   .then(response => response.json())
-      //   .then(userBooksData =>
       this.setState({
         currentUserBooks: this.state.currentUserBooks.sort((a, b) =>
           a.title.localeCompare(b.title)
         ),
         sortMethod: "alphabetically"
       });
-      // );
     }
     if (event.target.value === "Author") {
-      // fetch(`http://localhost:3000/users/${this.props.user_id}`)
-      //   .then(response => response.json())
-      //   .then(userBooksData =>
       this.setState({
         currentUserBooks: this.state.currentUserBooks.sort((a, b) =>
           a.authors.localeCompare(b.authors)
         ),
         sortMethod: "author"
       });
-      // );
     }
     // else if (event.target.value === "Page Count")
     // else if (event.target.value === "Date Published")
   };
-
+  // track tag input
   handleChange = e => {
     this.setState({
       value: e.target.value
@@ -318,12 +303,6 @@ class HomePage extends React.Component {
       this.addTag();
     }
   };
-
-  // handleKeyDown = e => {
-  //   if ((e.key === "Delete" || e.key === "Backspace") && !this.state.value) {
-  //     this.editPrevTag();
-  //   }
-  // };
 
   addTag = () => {
     let tag = this.state.value;
@@ -421,36 +400,6 @@ class HomePage extends React.Component {
       });
   };
 
-  // deleteTag = tag => {
-  //   console.log(tag);
-  //   const newShelves = this.state.shelves
-  //     .toString()
-  //     .split(", ")
-  //     .filter(shelf => shelf != tag)
-  //     .join(", ");
-
-  //   this.setState({
-  //     shelves: [newShelves]
-  //   });
-  //   console.log(this.state.shelves);
-  // };
-
-  // editPrevTag = () => {
-  //   let tags = this.state.tags;
-
-  //   const tag = tags.pop();
-
-  //   this.setState({ value: tag });
-  // };
-
-  // editPrevTag() {
-  //   let tags = [this.state.shelves];
-
-  //   const tag = tags.pop();
-
-  //   this.setState({ value: tag });
-  // }
-
   logOut = () => {
     localStorage.clear();
     this.props.history.push("/login");
@@ -510,11 +459,6 @@ class HomePage extends React.Component {
           {/* <button className="logOut" /> */}
           <h1> {this.props.username && `Hello, ${this.props.username}!`}</h1>
         </div>
-        {/* <ul>
-          <li>
-            <Link to="/messages">go to messages</Link>
-          </li>
-        </ul> */}
 
         <div className="SearchBar">
           <input
@@ -524,9 +468,7 @@ class HomePage extends React.Component {
             onChange={this.grabSearchInput}
             onKeyPress={this.triggerBookSearch}
           />
-          {/* <button className="searchBooks" onClick={this.searchForBooks}>
-            Search
-          </button>{" "} */}
+
           <div className="ChooseSearch">
             <button className="searchOption" onClick={this.searchForBooks}>
               Search All Books
@@ -542,7 +484,7 @@ class HomePage extends React.Component {
               </button>
             ) : null}
           </div>
-          {/* <button className="searchBooks">Search</button> */}
+
           {this.state.displayBooks.length > 0 ? (
             <div className="bookSearchResults">
               <button
@@ -554,7 +496,7 @@ class HomePage extends React.Component {
               {this.getSearchBoxBooks()}
             </div>
           ) : null}
-          {/* <button className="searchBooks">Search</button> */}
+
           {this.state.clickedBook.length > 0 && (
             <div className="clickedBookResults">
               <button
@@ -605,11 +547,7 @@ class HomePage extends React.Component {
                         Show More
                       </button>
                     )}
-                  {/* {!this.state.showMore &&
-                  this.state.clickedBook[0].attributes.book.description.length >
-                    550 ? (
-                    <button onClick={this.showMore}>Show More</button>
-                  ) : null} */}
+
                   {this.state.showMore &&
                     this.state.clickedBook[0].attributes.book.description.substr(
                       600
@@ -723,10 +661,6 @@ class HomePage extends React.Component {
               .map(shelf => (
                 <option value={`${shelf}`}>{`${shelf}`}</option>
               ))}
-            {/* <option value="Safari">Safari</option>
-            <option value="Firefox">Firefox</option>
-            <option value="Chrome">Chrome</option>
-            <option value="All Books">All Books</option> */}
           </select>
         </div>
         <div>
