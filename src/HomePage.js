@@ -410,13 +410,17 @@ class HomePage extends React.Component {
     console.log(this.state.chosenShelf);
     let allLoadedUserBooks;
     let ellipses;
-    if (this.state.clickedBook && !this.state.showMore) {
+    if (
+      this.state.clickedBook &&
+      !this.state.showMore &&
+      this.state.clickedBook[0].attributes.book.description !== null
+    ) {
       ellipses =
         this.state.clickedBook[0].attributes.book.description.substr(0, 600) +
         "...";
     } else if (this.state.clickedBook && this.state.showMore) {
       ellipses = this.state.clickedBook[0].attributes.book.description;
-    }
+    } else ellipses = "No description was listed for this book";
     if (this.state.currentUserBooks.length > 0) {
       allLoadedUserBooks = this.state.currentUserBooks.map(book => {
         return (
@@ -536,6 +540,8 @@ class HomePage extends React.Component {
                 <h4>
                   {/* {this.state.clickedBook[0].attributes.book.description} */}
                   {!this.state.showMore &&
+                  this.state.clickedBook[0].attributes.book.description !==
+                    null &&
                   this.state.clickedBook[0].attributes.book.description.length <
                     550
                     ? this.state.clickedBook[0].attributes.book.description

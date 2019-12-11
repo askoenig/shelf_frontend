@@ -13,7 +13,10 @@ export default class SearchBook extends Component {
         ? this.props.book.volumeInfo.authors.join(", ")
         : "",
       datePublished: this.props.book.volumeInfo.publishedDate,
-      description: this.props.book.volumeInfo.description,
+      description:
+        this.props.book.volumeInfo.description == null
+          ? "There is no description for this book."
+          : this.props.book.volumeInfo.description,
       printedPageCount: this.props.book.volumeInfo.pageCount,
       categories: Object.keys(this.props.book.volumeInfo).includes("categories")
         ? this.props.book.volumeInfo.categories.join(", ")
